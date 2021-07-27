@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      7k 字
+      7.6k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      100
+      108
        分钟
     </span>
   
@@ -525,6 +525,49 @@
 <li><code>@RequestBody</code>不能少，不然前端传过来的json串无法赋值给admin对象</li>
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@PostMapping(&quot;/login&quot;)</span>  <span class="hljs-comment">//post 表示会传递json串过来</span><br>   <span class="hljs-function"><span class="hljs-keyword">public</span> Result <span class="hljs-title">login</span><span class="hljs-params">(<span class="hljs-meta">@RequestBody</span> Admin admin)</span></span>&#123;<br>       <span class="hljs-keyword">boolean</span> login = adminService.login(admin);<br>       <span class="hljs-keyword">if</span> (login)&#123;<br>           <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Result(<span class="hljs-keyword">true</span>, StatusCode.OK, <span class="hljs-string">&quot;登录成功&quot;</span>);<br>       &#125; <span class="hljs-keyword">else</span> &#123;<br>           <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Result(<span class="hljs-keyword">false</span>, StatusCode.LOGINERROR, <span class="hljs-string">&quot;用户名或密码错误&quot;</span>);<br>       &#125;<br>   &#125;<br></code></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="2-JWT-实现微服务鉴权"><a href="#2-JWT-实现微服务鉴权" class="headerlink" title="2. JWT 实现微服务鉴权"></a>2. <strong>JWT</strong> 实现微服务鉴权</h3><h4 id="2-1-什么是微服务鉴权"><a href="#2-1-什么是微服务鉴权" class="headerlink" title="2.1 什么是微服务鉴权"></a>2.1 什么是微服务鉴权</h4><img src="images/image1/image-20210727205423816.png" srcset="/img/loading.gif" lazyload alt="image-20210727205423816"  />
+
+<p>我们可以采用JWT的方式来实现鉴权校验。</p>
+<h4 id="2-2-JWT"><a href="#2-2-JWT" class="headerlink" title="2.2 JWT"></a>2.2 <strong>JWT</strong></h4><p>JSON Web Token（JWT）是一个非常轻巧的规范。这个规范允许我们使用JWT在用户和服务器之间传递安全可靠的信息。</p>
+<p>一个JWT实际上就是一个字符串，它由三部分组成，头部、载荷与签名。</p>
+<ul>
+<li><p><strong>头部</strong>（<strong>Header</strong>） </p>
+<p>头部用于描述关于该JWT的最基本的信息，例如其类型以及签名所用的算法等。这也可以被表示成一个JSON对象。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs json">&#123;<span class="hljs-attr">&quot;typ&quot;</span>:<span class="hljs-string">&quot;JWT&quot;</span>,<span class="hljs-attr">&quot;alg&quot;</span>:<span class="hljs-string">&quot;HS256&quot;</span>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在头部指明了签名算法是HS256算法。 我们进行BASE64编码，编码后的字符串如下：</p>
+<figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gcode">eyJ<span class="hljs-number">0</span>eXAiOiJKV<span class="hljs-number">1</span>QiLCJhbGciOiJIUzI<span class="hljs-number">1</span><span class="hljs-symbol">NiJ9</span><br></code></pre></td></tr></table></figure></li>
+<li><p><strong>载荷</strong>（<strong>payload</strong>）</p>
+<p>载荷就是存放有效信息的地方。</p>
+<p>定义一个payload:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs json">&#123;<span class="hljs-attr">&quot;sub&quot;</span>:<span class="hljs-string">&quot;1234567890&quot;</span>,<span class="hljs-attr">&quot;name&quot;</span>:<span class="hljs-string">&quot;John Doe&quot;</span>,<span class="hljs-attr">&quot;admin&quot;</span>:<span class="hljs-literal">true</span>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>然后将其进行base64编码，得到Jwt的第二部分</p>
+<figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gcode">eyJzdWIiOiIxMj<span class="hljs-name">M0</span><span class="hljs-symbol">NTY3</span>ODkwIiwibmFtZSI<span class="hljs-number">6</span>Ikpva<span class="hljs-name">G4</span>gR<span class="hljs-name">G9</span>lIiwiYWRtaW<span class="hljs-number">4</span>iO<span class="hljs-symbol">nRydWV9</span><br></code></pre></td></tr></table></figure></li>
+<li><p><strong>签证</strong>（<strong>signature</strong>）</p>
+<p>jwt的第三部分是一个签证信息，这个签证信息由三部分组成：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute"><span class="hljs-nomarkup">header</span></span> (base<span class="hljs-number">64</span>后的)<br><span class="hljs-attribute">payload</span> (base<span class="hljs-number">64</span>后的)<br><span class="hljs-attribute">secret</span> <br></code></pre></td></tr></table></figure>
+
+<p>然后通过header中声明的加密方式进行加盐secret组合加密，然后就构成了jwt的第三部分（第三部分就包括了一二部分）</p>
+<figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gcode">TJVA<span class="hljs-number">95</span><span class="hljs-keyword">Or</span><span class="hljs-name">M7</span>E<span class="hljs-number">2</span>cBab<span class="hljs-number">30</span>RMHrHDcEfxjoYZgeFO<span class="hljs-symbol">NFh7</span>HgQ<br></code></pre></td></tr></table></figure></li>
+</ul>
+<p>将这三部分用.连接成一个完整的字符串,构成了最终的jwt: </p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9</span>.eyJzdWIiOiIxMjM<span class="hljs-number">0</span>NTY<span class="hljs-number">3</span>ODkwIiwibmFtZSI<span class="hljs-number">6</span>IkpvaG<span class="hljs-number">4</span>gRG<span class="hljs-number">9</span>lIiwiYWRtaW<span class="hljs-number">4</span>iOnRydWV<span class="hljs-number">9</span>.TJVA<span class="hljs-number">95</span>OrM<span class="hljs-number">7</span>E<span class="hljs-number">2</span>cBab<span class="hljs-number">30</span>RMHrHDcEfxjoYZgeFONFh<span class="hljs-number">7</span>HQ<br></code></pre></td></tr></table></figure>
+
+<h4 id="2-3-JJWT签发与验证token"><a href="#2-3-JJWT签发与验证token" class="headerlink" title="2.3 JJWT签发与验证token"></a>2.3 <strong>JJWT</strong>签发与验证<strong>token</strong></h4><p>JJWT是一个提供端到端的JWT创建和验证的Java库。永远免费和开源(Apache License，版本2.0)，JJWT很容易使用和理解。它被设计成一个以建筑为中心的流畅界面，隐藏了它的大部分复杂性。 </p>
+<p>官方文档： <a target="_blank" rel="noopener" href="https://github.com/jwtk/jjwt">https://github.com/jwtk/jjwt</a> </p>
+<h5 id="2-3-1-创建token"><a href="#2-3-1-创建token" class="headerlink" title="2.3.1 创建token"></a>2.3.1 创建<strong>token</strong></h5><ol>
+<li><p>新建项目jwtTest中的pom.xml中添加依赖：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>          <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>io.jsonwebtoken<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>          <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>jjwt<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>          <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>0.9.0<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>      <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure></li>
+<li><p>创建测试类，代码如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">JwtTest</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        JwtBuilder builder = Jwts.builder()<br>                                .setId(<span class="hljs-string">&quot;888&quot;</span>)<br>                                .setSubject(<span class="hljs-string">&quot;小白&quot;</span>)<br>                                .setIssuedAt(<span class="hljs-keyword">new</span> Date())<br>                                .signWith(SignatureAlgorithm.HS256, <span class="hljs-string">&quot;itcast&quot;</span>);<br><br>        System.out.println(builder.compact());<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>运行打印结果：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">eyJhbGciOiJIUzI1NiJ9</span>.eyJqdGkiOiI<span class="hljs-number">4</span>ODgiLCJzdWIiOiLlsI_nmb<span class="hljs-number">0</span>iLCJpYXQiOjE<span class="hljs-number">2</span>MjczOTI<span class="hljs-number">3</span>MzR<span class="hljs-number">9</span>.Je<span class="hljs-number">1</span>REFE<span class="hljs-number">0</span>D<span class="hljs-number">0</span>w<span class="hljs-number">9</span>eV<span class="hljs-number">3</span>rUl<span class="hljs-number">6</span>sqQN<span class="hljs-number">4</span>m<span class="hljs-number">3</span>Z-LSShbyn<span class="hljs-number">8</span>JGleEgw<br></code></pre></td></tr></table></figure>
+
+<p>由于载荷中包含时间，每次生成的jwt是不一样的。</p>
+<h5 id="解析token"><a href="#解析token" class="headerlink" title="解析token"></a>解析<strong>token</strong></h5></li>
 </ol>
 
             </div>
