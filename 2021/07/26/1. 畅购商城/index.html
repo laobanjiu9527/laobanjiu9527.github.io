@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2.9k 字
+      3.9k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      42
+      56
        分钟
     </span>
   
@@ -313,7 +313,118 @@
 <li><p>创建包com.changgou.goods，并在goods下创建启动类</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@SpringBootApplication</span>  <span class="hljs-comment">// 表明他是这个服务的启动类</span><br><span class="hljs-meta">@EnableEurekaClient</span>     <span class="hljs-comment">// 表明这个微服务是一个eureka-client</span><br><span class="hljs-meta">@MapperScan(basePackages = &#123;&quot;com.changgou.goods.dao&quot;&#125;)</span>  <span class="hljs-comment">//@MapperScan是tk.mybatis.spring.annotation包下的，用于扫描dao包下的Mapper接口</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">GoodsApplication</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        SpringApplication.run( GoodsApplication.class);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
 </ol>
-<h3 id="2-商品微服务-品牌增删改查"><a href="#2-商品微服务-品牌增删改查" class="headerlink" title="2. 商品微服务**-**品牌增删改查"></a>2. 商品微服务**-**品牌增删改查</h3>
+<h3 id="2-商品微服务-品牌增删改查"><a href="#2-商品微服务-品牌增删改查" class="headerlink" title="2. 商品微服务-品牌增删改查"></a>2. 商品微服务-品牌增删改查</h3><p>先实现他的基本需求</p>
+<ol>
+<li>查询全部列表数据 </li>
+<li>根据ID查询实体数据 </li>
+<li>增加 </li>
+<li>修改</li>
+<li>删除</li>
+<li>条件查询</li>
+<li>分页查询</li>
+<li>分页+条件查询 </li>
+</ol>
+<p>再观察他的表结构   (<em>tips: ctrl+enter 是在表格内换行, 直接按 enter会退出表格</em>)</p>
+<table>
+<thead>
+<tr>
+<th>字段名称</th>
+<th>字段含义</th>
+<th>字段类型</th>
+<th>字段长度</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>id</td>
+<td>品牌id</td>
+<td>INT</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>name</td>
+<td>品牌名称</td>
+<td>VARCHAR</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>image</td>
+<td>品牌图片地址</td>
+<td>VARCHAR</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>letter</td>
+<td>品牌的首字母</td>
+<td>CHAR</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>seq</td>
+<td>排序</td>
+<td>INT</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h4 id="2-1-代码实现"><a href="#2-1-代码实现" class="headerlink" title="2.1 代码实现"></a>2.1 代码实现</h4><p>商品类的整体包结构还是三层架构</p>
+<p><img src="/images/image1/image-20210727122004680.png" srcset="/img/loading.gif" lazyload alt="image-20210727122004680"></p>
+<h5 id="2-1-1-品牌列表"><a href="#2-1-1-品牌列表" class="headerlink" title="2.1.1 品牌列表"></a>2.1.1 品牌列表</h5><ol>
+<li>在changgou_service_goods_api创建com.changgou.goods.pojo包，pojo包下创建 Brand实体类</li>
+</ol>
+<p><img src="/images/image1/image-20210727120159612.png" srcset="/img/loading.gif" lazyload alt="image-20210727120159612"></p>
+<p>​    <img src="/images/image1/image-20210727120235587.png" srcset="/img/loading.gif" lazyload alt="image-20210727120235587"></p>
+<p>​    注意实体类中的<code>@Table(name=&quot;tb_brand&quot;)</code>和<code>@Id</code>这俩注解</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.changgou.goods.pojo;<br><br><span class="hljs-keyword">import</span> javax.persistence.Id;<br><span class="hljs-keyword">import</span> javax.persistence.Table;<br><span class="hljs-keyword">import</span> java.io.Serializable;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * brand实体类</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@Table(name=&quot;tb_brand&quot;)</span>  <span class="hljs-comment">//表明这个类和mysql数据库中的 tb_brand 相对应</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Brand</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Serializable</span> </span>&#123;<br><br>	<span class="hljs-meta">@Id</span>  <span class="hljs-comment">//表明id是表的主键</span><br>	<span class="hljs-keyword">private</span> Integer id;<span class="hljs-comment">//品牌id</span><br><br><br>	<br>	<span class="hljs-keyword">private</span> String name;<span class="hljs-comment">//品牌名称</span><br>	<span class="hljs-keyword">private</span> String image;<span class="hljs-comment">//品牌图片地址</span><br>	<span class="hljs-keyword">private</span> String letter;<span class="hljs-comment">//品牌的首字母</span><br>	<span class="hljs-keyword">private</span> Integer seq;<span class="hljs-comment">//排序</span><br><br>	<br>	<span class="hljs-function"><span class="hljs-keyword">public</span> Integer <span class="hljs-title">getId</span><span class="hljs-params">()</span> </span>&#123;<br>		<span class="hljs-keyword">return</span> id;<br>	&#125;<br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setId</span><span class="hljs-params">(Integer id)</span> </span>&#123;<br>		<span class="hljs-keyword">this</span>.id = id;<br>	&#125;<br><br>	<span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getName</span><span class="hljs-params">()</span> </span>&#123;<br>		<span class="hljs-keyword">return</span> name;<br>	&#125;<br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setName</span><span class="hljs-params">(String name)</span> </span>&#123;<br>		<span class="hljs-keyword">this</span>.name = name;<br>	&#125;<br><br>	<span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getImage</span><span class="hljs-params">()</span> </span>&#123;<br>		<span class="hljs-keyword">return</span> image;<br>	&#125;<br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setImage</span><span class="hljs-params">(String image)</span> </span>&#123;<br>		<span class="hljs-keyword">this</span>.image = image;<br>	&#125;<br><br>	<span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getLetter</span><span class="hljs-params">()</span> </span>&#123;<br>		<span class="hljs-keyword">return</span> letter;<br>	&#125;<br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setLetter</span><span class="hljs-params">(String letter)</span> </span>&#123;<br>		<span class="hljs-keyword">this</span>.letter = letter;<br>	&#125;<br><br>	<span class="hljs-function"><span class="hljs-keyword">public</span> Integer <span class="hljs-title">getSeq</span><span class="hljs-params">()</span> </span>&#123;<br>		<span class="hljs-keyword">return</span> seq;<br>	&#125;<br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setSeq</span><span class="hljs-params">(Integer seq)</span> </span>&#123;<br>		<span class="hljs-keyword">this</span>.seq = seq;<br>	&#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ol start="2">
+<li><p>Dao创建 </p>
+<p>在changgou_service_goods微服务下创建com.changgou.goods.dao.BrandMapper接口，代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//Mapper&lt;T&gt;是一个接口, 继承它以后可以用一些基本的对数据库单表的操作方法,如果查询比较复杂, 则可以自己在BrandMapper中定义方法在注解上完成sql语句的编写</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">BrandMapper</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Mapper</span>&lt;<span class="hljs-title">Brand</span>&gt; </span>&#123; <br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li><p>业务层 (service层)</p>
+<p>创建com.changgou.goods.service.BrandService接口，代码如下： </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">BrandService</span> </span>&#123;<br><br>    <span class="hljs-comment">/***</span><br><span class="hljs-comment">     * 查询所有</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span></span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function">List&lt;Brand&gt; <span class="hljs-title">findAll</span><span class="hljs-params">()</span></span>;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>创建 com.changgou.goods.service.impl 包，包下创建服务实现类 BrandServiceImpl， 代码如下：</p>
+<p>注意: </p>
+<ul>
+<li>业务层实现类上的 bean 定义<code>@Service</code>不能忘了</li>
+<li>要记得用<code>@Autowired</code>注入BrandMapper这个接口,是通过这个接口去操控数据库的</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Service</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BrandServiceImpl</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">BrandService</span> </span>&#123;<br><br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">private</span> BrandMapper brandMapper;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 查询全部列表</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span></span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;Brand&gt; <span class="hljs-title">findAll</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> brandMapper.selectAll();<br>    &#125;<br>    <br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li><p>控制层 </p>
+<p>控制层 com.changgou.goods包下创建controller包 ，包下创建类</p>
+<p>注意:</p>
+<ul>
+<li><code>@RestController</code> = <code>@ResponseBody</code>+<code>@Controller</code>, <code>@ResponseBody</code>表明这个方法的返回值不是去跳转页面,而是响应给客户端浏览器的响应体. <code>@Controller</code>则是把这个类创建成bean放入spring容器</li>
+<li>由于项目一般前后端分离, 前端项目和后端项目会部署在不同的服务器上, 所以客户端浏览器的请求是跨域的, 会存在请求通过前端到达不了后端的情况,  <code>@CrossOrigin</code>则表明允许跨域, 会解决掉上述问题</li>
+<li><code>@RequestMapping</code>限制了这个控制器的访问路径</li>
+<li><code>@Autowired</code>则是注入<code>BrandService</code>接口, 使用其接口实现类的方法</li>
+<li><code>@GetMapping</code>则是使用了Restful风格, Get 表明这次请求是一次查询</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@RestController</span><br><span class="hljs-meta">@CrossOrigin</span><br><span class="hljs-meta">@RequestMapping(&quot;/brand&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BrandController</span> </span>&#123;<br><br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">private</span> BrandService brandService;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 查询全部数据</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span></span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@GetMapping</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Result <span class="hljs-title">findAll</span><span class="hljs-params">()</span></span>&#123;<br>        List&lt;Brand&gt; brandList = brandService.findAll();<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Result(<span class="hljs-keyword">true</span>, StatusCode.OK,<span class="hljs-string">&quot;查询成功&quot;</span>,brandList) ;<br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ol>
+<p>以上是查询全部商品的一个流程, 其他的基本需求流程是一样的, 若需要仔细研究请查看本机上的changgou项目.</p>
+<h3 id="3-公共异常处理"><a href="#3-公共异常处理" class="headerlink" title="3. 公共异常处理"></a>3. 公共异常处理</h3><p>为了代码更容易维护，创建一个类集中处理异常 </p>
+<p>在com.changgou.goods.handler包下创建公共异常处理类BaseExceptionHandler (也可在controller包下直接创建,看自己喜好)</p>
+<p>注意: </p>
+<ul>
+<li><code>@ControllerAdvice</code>表明这是一个增强的<code>@Controller</code>, 是对整个controller进行操作的一个类</li>
+<li><code>@ExceptionHandler(value = Exception.class)</code>表明这个方法是用来处理为<code>Exception</code>的异常</li>
+<li><code>@ResponseBody</code>则是把结果<code>new Result(false, StatusCode.ERROR, &quot;执行出错&quot;)</code>返回给前端</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@ControllerAdvice</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BaseExceptionHandler</span> </span>&#123;<br>	<br>    <span class="hljs-meta">@ExceptionHandler(value = Exception.class)</span><br>    <span class="hljs-meta">@ResponseBody</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Result <span class="hljs-title">error</span><span class="hljs-params">(Exception e)</span></span>&#123;<br>        e.printStackTrace();        <br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Result(<span class="hljs-keyword">false</span>, StatusCode.ERROR, <span class="hljs-string">&quot;执行出错&quot;</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<p>​    </p>
+
             </div>
             <hr>
             <div>
