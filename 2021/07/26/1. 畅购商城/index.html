@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      6.2k 字
+      7k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      90
+      100
        分钟
     </span>
   
@@ -485,7 +485,48 @@
 <p>测试的时候记得文件名称也取成file, 不然请求参数传到controller那里由于参数和方法里的形参对不上会报错</p>
 </li>
 </ol>
-<h2 id="Part-03"><a href="#Part-03" class="headerlink" title="Part-03"></a>Part-03</h2>
+<h2 id="Part-03"><a href="#Part-03" class="headerlink" title="Part-03"></a>Part-03</h2><h3 id="1-BCrypt密码加密"><a href="#1-BCrypt密码加密" class="headerlink" title="1. BCrypt密码加密"></a>1. BCrypt密码加密</h3><h4 id="1-1-Bcypt快速入门"><a href="#1-1-Bcypt快速入门" class="headerlink" title="1.1 Bcypt快速入门"></a>1.1 Bcypt快速入门</h4><p>在用户模块，对于用户密码的保护，通常都会进行加密。我们通常对密码进行加密，然后存放在数据库中，在用户进行登录的时候，将其输入的密码进行加密然后与数据库中存放的密文进行比较，以验证用户密码是否正确。目前，MD5和BCrypt比较流行。相对来说, BCrypt比MD5更安全。因为其内部引入的加盐机制. (加盐实际上是随机生成一个29位字符的字符串) </p>
+<p>官网: <a target="_blank" rel="noopener" href="http://www.mindrot.org/projects/jBCrypt/">http://www.mindrot.org/projects/jBCrypt/</a></p>
+<p>测试用例</p>
+<p>注意: </p>
+<ul>
+<li>每次程序执行时生成盐值的密文是会变的</li>
+<li>BCrypt不支持反运算(即通过密文得到明文), 只支持密码校验</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> org.springframework.security.crypto.bcrypt.BCrypt; <span class="hljs-comment">//注意这里的包别导错了</span><br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TestBCrypt</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        <span class="hljs-comment">// 1.生成盐</span><br>        String gensalt = BCrypt.gensalt();<br>        System.out.println(<span class="hljs-string">&quot;salt:&quot;</span> + gensalt);<br><br>        <span class="hljs-comment">// 2.生成密码</span><br>        String saltPassword = BCrypt.hashpw(<span class="hljs-string">&quot;123456&quot;</span>, gensalt);<br>        System.out.println(<span class="hljs-string">&quot;密码：&quot;</span> + saltPassword);<br>        <br>        <span class="hljs-comment">// 3.对密码进行校验</span><br>        <span class="hljs-keyword">boolean</span> checkpw = BCrypt.checkpw(<span class="hljs-string">&quot;123456&quot;</span>, saltPassword);<br>        System.out.println(checkpw);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="1-2-商城新增管理员密码加密"><a href="#1-2-商城新增管理员密码加密" class="headerlink" title="1.2 商城新增管理员密码加密"></a>1.2 商城新增管理员密码加密</h4><p>代码实现</p>
+<p>注意:</p>
+<ul>
+<li>大致的框架都已经完成了,这里只是实现让密码加密这一部分过程</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment">   * 增加</span><br><span class="hljs-comment">   * <span class="hljs-doctag">@param</span> admin</span><br><span class="hljs-comment">   */</span><br>  <span class="hljs-meta">@Override</span><br>  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">add</span><span class="hljs-params">(Admin admin)</span></span>&#123;<br>      <span class="hljs-comment">//获取盐</span><br>      String gensalt = BCrypt.gensalt();<br>      <span class="hljs-comment">//对用户的密码进行加密</span><br>      String hashpw = BCrypt.hashpw(admin.getPassword(), gensalt);<br>      admin.setPassword(hashpw);<br>      adminMapper.insert(admin);<br>  &#125;<br></code></pre></td></tr></table></figure>
+
+<p>cotroller层代码讲解</p>
+<p>注意：</p>
+<ul>
+<li><code>@RequestBody</code>: 对前端传过来的json串自动赋值给这里的admin新参对象</li>
+<li>数据库表的登录字段名称是<code>login_name</code>, 但是Admin类里是<code>loginName</code>, 不知道为啥这样也可以对应</li>
+<li>启动服务的时候先启动注册中心的，在启动相应的微服务的类，不然会报错 <code>com.netflix.discovery.shared.transport.TransportException: Cannot execute request on any known server</code></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/***</span><br><span class="hljs-comment">    * 新增数据</span><br><span class="hljs-comment">    * <span class="hljs-doctag">@param</span> admin</span><br><span class="hljs-comment">    * <span class="hljs-doctag">@return</span></span><br><span class="hljs-comment">    */</span><br>   <span class="hljs-meta">@PostMapping</span><br>   <span class="hljs-function"><span class="hljs-keyword">public</span> Result <span class="hljs-title">add</span><span class="hljs-params">(<span class="hljs-meta">@RequestBody</span> Admin admin)</span></span>&#123;<br>       adminService.add(admin);<br>       <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Result(<span class="hljs-keyword">true</span>,StatusCode.OK,<span class="hljs-string">&quot;添加成功&quot;</span>);<br>   &#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="1-3-管理员登录密码验证"><a href="#1-3-管理员登录密码验证" class="headerlink" title="1.3 管理员登录密码验证"></a>1.3 管理员登录密码验证</h4><p>需求分析:</p>
+<p>用户发送请求，输入用户名和密码。后台管理微服务controller接收参数，验证用户名和密码是否正确，如果正确则返回用户登录成功结果, 如果错误则返回登陆失败信息。 </p>
+<p>代码实现</p>
+<ol>
+<li><p>AdminService新增方法定义 login()</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment">    * 用户登录</span><br><span class="hljs-comment">    * <span class="hljs-doctag">@param</span> admin</span><br><span class="hljs-comment">    * <span class="hljs-doctag">@return</span></span><br><span class="hljs-comment">    */</span><br>   <span class="hljs-function"><span class="hljs-keyword">boolean</span> <span class="hljs-title">login</span><span class="hljs-params">(Admin admin)</span></span>;<br></code></pre></td></tr></table></figure></li>
+<li><p>AdminServiceImpl实现此方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Override</span><br>   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">login</span><span class="hljs-params">(Admin admin)</span> </span>&#123;<br>       <span class="hljs-comment">// 根据登录名查询管理员</span><br>       Admin admin1 = <span class="hljs-keyword">new</span> Admin();<br>       admin1.setLoginName(admin.getLoginName());<br>       admin1.setStatus(<span class="hljs-string">&quot;1&quot;</span>);<br>       Admin admin2 = adminMapper.selectOne(admin1);<br>       <br>       <span class="hljs-comment">//比对数据库查询出的对象是否存在，存在则返回真，不存在则返回假</span><br>       <span class="hljs-keyword">if</span>(admin2 == <span class="hljs-keyword">null</span>)&#123;<br>           <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;<br>       &#125; <span class="hljs-keyword">else</span> &#123;<br>           <span class="hljs-keyword">return</span> BCrypt.checkpw(admin.getPassword(), admin2.getPassword());<br>       &#125;<br>   <br>   &#125;<br></code></pre></td></tr></table></figure></li>
+<li><p>AdminController新增方法</p>
+<p>注意：</p>
+<ul>
+<li><code>@RequestBody</code>不能少，不然前端传过来的json串无法赋值给admin对象</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@PostMapping(&quot;/login&quot;)</span>  <span class="hljs-comment">//post 表示会传递json串过来</span><br>   <span class="hljs-function"><span class="hljs-keyword">public</span> Result <span class="hljs-title">login</span><span class="hljs-params">(<span class="hljs-meta">@RequestBody</span> Admin admin)</span></span>&#123;<br>       <span class="hljs-keyword">boolean</span> login = adminService.login(admin);<br>       <span class="hljs-keyword">if</span> (login)&#123;<br>           <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Result(<span class="hljs-keyword">true</span>, StatusCode.OK, <span class="hljs-string">&quot;登录成功&quot;</span>);<br>       &#125; <span class="hljs-keyword">else</span> &#123;<br>           <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Result(<span class="hljs-keyword">false</span>, StatusCode.LOGINERROR, <span class="hljs-string">&quot;用户名或密码错误&quot;</span>);<br>       &#125;<br>   &#125;<br></code></pre></td></tr></table></figure></li>
+</ol>
+
             </div>
             <hr>
             <div>
