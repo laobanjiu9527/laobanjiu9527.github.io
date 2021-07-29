@@ -1107,7 +1107,7 @@
 <p>连接成功后，把本地的前端页面以及其样式设置的文件和文件夹全部都拷贝到服务器上nginx目录下的html文件夹中</p>
 <p><img src="/images/image1/image-20210729213222244.png" srcset="/img/loading.gif" lazyload alt="image-20210729213222244"></p>
 <p>最后更改nginx.conf的配置</p>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-comment"># 加载首页</span><br>      <span class="hljs-attribute">location</span> / &#123;<br>          <span class="hljs-attribute">root</span>   html;  <span class="hljs-comment"># 表明页面文件都部署在root文件夹下</span><br>          <span class="hljs-attribute">index</span>  index.html index.htm;  <span class="hljs-comment"># 表明location对应的主页页面</span><br>      &#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-comment"># 加载首页</span><br>      <span class="hljs-attribute">location</span> / &#123;<br>          <span class="hljs-attribute">root</span>   html;  <span class="hljs-comment"># 表明页面文件都部署在html文件夹下</span><br>          <span class="hljs-attribute">index</span>  index.html index.htm;  <span class="hljs-comment"># 表明location对应的主页页面</span><br>      &#125;<br></code></pre></td></tr></table></figure>
 
 <p>配置完成后重启nginx即可</p>
 <p>最后根据首页的<code>location</code>, 在浏览器输入 192.168.200.128 即可完成访问。<code>location</code>的<code>/</code>在地址栏可输也可不输入。看到主页的广告图出现，说明设置成功。</p>
