@@ -233,7 +233,7 @@
 <li><p><strong>削峰填谷</strong></p>
 <p>如订单系统，在下单的时候就会往数据库写数据。但是数据库只能支撑每秒1000左右的并发写入，并发量再高就容易宕机。低峰期的时候并发也就100多个，但是在高峰期时候，并发量会突然激增到5000以上，这个时候数据库肯定卡死了。</p>
 <p>如果使用MQ, 消息被MQ保存起来了，然后系统就可以按照自己的消费能力来消费，比如每秒1000个数据，这样慢慢写入数据库，这样就不会卡死数据库了。</p>
-<p><img src="/images/image2/image-20210730231412854.png" srcset="/img/loading.gif" lazyload alt="image-20210730231412854"></p>
+<p><img src="../images/image2/image-20210730231412854.png" srcset="/img/loading.gif" lazyload alt="image-20210730231412854"></p>
 <p>但是使用了MQ之后，限制消费消息的速度为1000，但是这样一来，高峰期产生的数据势必会被积压在MQ中，高峰就被“削”掉了。但是因为消息积压，在高峰期过后的一段时间内，消费消息的速度还是会维持在1000QPS，直到消费完积压的消息,这就叫做“填谷”</p>
 <img src="./images/image2/image-20210730231500453.png" srcset="/img/loading.gif" lazyload  style="zoom:80%;" /></li>
 </ol>
