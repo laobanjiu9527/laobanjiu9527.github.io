@@ -173,7 +173,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      17.7k 字
+      17.9k 字
     </span>
   
 
@@ -183,7 +183,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      245
+      248
        分钟
     </span>
   
@@ -1247,6 +1247,12 @@
 <h4 id="2-3-2-从mq中提取消息执行更新"><a href="#2-3-2-从mq中提取消息执行更新" class="headerlink" title="2.3.2 从mq中提取消息执行更新"></a>2.3.2 从mq中提取消息执行更新</h4><ol>
 <li><p>changgou_service_business工程pom.xml引入依赖</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!--消息队列依赖--&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-starter-amqp<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.squareup.okhttp3<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>okhttp<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>3.9.0<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure></li>
+<li><p>在spring节点下添加rabbitmq配置</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">rabbitmq:</span><br>  <span class="hljs-attr">host:</span> <span class="hljs-number">192.168</span><span class="hljs-number">.200</span><span class="hljs-number">.128</span><br></code></pre></td></tr></table></figure></li>
+<li><p>com.changgou.business包下创建listener包，包下创建类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Component</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AdListener</span> </span>&#123;<br><br>    <span class="hljs-meta">@RabbitListener(queues = &quot;ad_update_queue&quot;)</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">receiveMessage</span><span class="hljs-params">(String message)</span></span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;接收到的消息为:&quot;</span>+message);<br><br>        <span class="hljs-comment">//发起远程调用</span><br>        OkHttpClient okHttpClient = <span class="hljs-keyword">new</span> OkHttpClient();<br>        String url = <span class="hljs-string">&quot;http://192.168.200.128/ad_update?position=&quot;</span>+message;<br>        Request request = <span class="hljs-keyword">new</span> Request.Builder().url(url).build();<br>        Call call = okHttpClient.newCall(request);<br>        call.enqueue(<span class="hljs-keyword">new</span> Callback() &#123;<br>            <span class="hljs-meta">@Override</span><br>            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onFailure</span><span class="hljs-params">(Call call, IOException e)</span> </span>&#123;<br>                <span class="hljs-comment">//请求失败</span><br>                e.printStackTrace();<br>            &#125;<br><br>            <span class="hljs-meta">@Override</span><br>            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onResponse</span><span class="hljs-params">(Call call, Response response)</span> <span class="hljs-keyword">throws</span> IOException </span>&#123;<br>                <span class="hljs-comment">//请求成功</span><br>                System.out.println(<span class="hljs-string">&quot;请求成功:&quot;</span>+response.message());<br>            &#125;<br>        &#125;);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li><p>测试，启动business微服务(前面已经启动了eureka, canal的微服务。不然达不成效果)，观察控制台输出和数据同步效果</p>
+</li>
 </ol>
 
             </div>
