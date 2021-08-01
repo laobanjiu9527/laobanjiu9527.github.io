@@ -233,9 +233,9 @@
 <li><p><strong>削峰填谷</strong></p>
 <p>如订单系统，在下单的时候就会往数据库写数据。但是数据库只能支撑每秒1000左右的并发写入，并发量再高就容易宕机。低峰期的时候并发也就100多个，但是在高峰期时候，并发量会突然激增到5000以上，这个时候数据库肯定卡死了。</p>
 <p>如果使用MQ, 消息被MQ保存起来了，然后系统就可以按照自己的消费能力来消费，比如每秒1000个数据，这样慢慢写入数据库，这样就不会卡死数据库了。</p>
-<p><img src="/images/image2/image-20210730231412854.png" srcset="/img/loading.gif" lazyload alt="image-20210730231412854"></p>
+<p><img src="/images/image-20210730231412854.png" srcset="/img/loading.gif" lazyload alt="image-20210730231412854"></p>
 <p>但是使用了MQ之后，限制消费消息的速度为1000，但是这样一来，高峰期产生的数据势必会被积压在MQ中，高峰就被“削”掉了。但是因为消息积压，在高峰期过后的一段时间内，消费消息的速度还是会维持在1000QPS，直到消费完积压的消息,这就叫做“填谷”</p>
-<img src="/images/image2/image-20210730231500453.png" srcset="/img/loading.gif" lazyload  style="zoom:80%;" /></li>
+<img src="/images/image-20210730231500453.png" srcset="/img/loading.gif" lazyload  style="zoom:80%;" /></li>
 </ol>
 </li>
 </ul>
@@ -281,7 +281,7 @@
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sh">service rabbitmq-server start <span class="hljs-comment"># 启动服务</span><br>service rabbitmq-server stop <span class="hljs-comment"># 停止服务</span><br>service rabbitmq-server restart <span class="hljs-comment"># 重启服务</span><br></code></pre></td></tr></table></figure></li>
 </ol>
 <p>RabbitMQ在配置好后，可以访问<code>http://ip地址:15672</code> ；其自带了guest/guest的用户名和密码</p>
-<p><img src="/images/image2/image-20210730234122057.png" srcset="/img/loading.gif" lazyload alt="image-20210730234122057"></p>
+<p><img src="/images/image-20210730234122057.png" srcset="/img/loading.gif" lazyload alt="image-20210730234122057"></p>
 <p>(关于配置虚拟主机和用户这里的知识就先不介绍，需要的话去网上查询详细博客)</p>
 <h1 id="3-AMQP"><a href="#3-AMQP" class="headerlink" title="3. AMQP"></a>3. AMQP</h1><h2 id="3-1-相关概念介绍"><a href="#3-1-相关概念介绍" class="headerlink" title="3.1. 相关概念介绍"></a>3.1. 相关概念介绍</h2><p>AMQP  一个提供统一消息服务的应用层标准高级消息队列协议，是应用层协议的一个开放标准，为面向消息的中间件设计。</p>
 <p>AMQP是一个二进制协议，拥有一些现代化特点：多信道、协商式，异步，安全，扩平台，中立，高效。</p>
@@ -353,7 +353,7 @@
 <li><p>关闭信道；</p>
 </li>
 <li><p>关闭连接；</p>
-<p><img src="/images/image2/image-20210731135723102.png" srcset="/img/loading.gif" lazyload alt="image-20210731135723102"></p>
+<p><img src="/images/image-20210731135723102.png" srcset="/img/loading.gif" lazyload alt="image-20210731135723102"></p>
 </li>
 </ol>
 </li>
@@ -366,7 +366,7 @@
 <p>注意：</p>
 <ul>
 <li><p>有可能报这个错，如果报了的话再加第二个包</p>
-<p><img src="/images/image2/image-20210730235828100-1627661205170.png" srcset="/img/loading.gif" lazyload alt="image-20210730235828100"></p>
+<p><img src="/images/image-20210730235828100-1627661205170.png" srcset="/img/loading.gif" lazyload alt="image-20210730235828100"></p>
 </li>
 </ul>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.rabbitmq<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>amqp-client<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>5.6.0<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br>   <br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.slf4j<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>slf4j-nop<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>1.7.2<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br>   <br>   <br></code></pre></td></tr></table></figure></li>
@@ -374,7 +374,7 @@
 <p>注意：</p>
 <ul>
 <li><p>这里的虚拟主机名称不能乱设置，不然可能会报错，rabbitmq默认的是<code>\</code></p>
-<p><img src="/images/image2/image-20210731000917757.png" srcset="/img/loading.gif" lazyload alt="image-20210731000917757"></p>
+<p><img src="/images/image-20210731000917757.png" srcset="/img/loading.gif" lazyload alt="image-20210731000917757"></p>
 </li>
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Producer</span> </span>&#123;<br>    <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> String QUEUE_NAME = <span class="hljs-string">&quot;simple_queue&quot;</span>;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> IOException, TimeoutException </span>&#123;<br>        <span class="hljs-comment">//创建连接工厂</span><br>        ConnectionFactory connectionFactory = <span class="hljs-keyword">new</span> ConnectionFactory();<br>        <span class="hljs-comment">//主机地址;默认为 localhost</span><br>        connectionFactory.setHost(<span class="hljs-string">&quot;192.168.200.128&quot;</span>);<br>        <span class="hljs-comment">//连接端口;默认为 5672</span><br>        connectionFactory.setPort(<span class="hljs-number">5672</span>);<br>        <span class="hljs-comment">//虚拟主机名称;默认为 /</span><br>        connectionFactory.setVirtualHost(<span class="hljs-string">&quot;/&quot;</span>);<br>        <span class="hljs-comment">//连接用户名；默认为guest</span><br>        connectionFactory.setUsername(<span class="hljs-string">&quot;guest&quot;</span>);<br>        <span class="hljs-comment">//连接密码；默认为guest</span><br>        connectionFactory.setPassword(<span class="hljs-string">&quot;guest&quot;</span>);<br><br>        <span class="hljs-comment">//创建连接</span><br>        Connection connection = connectionFactory.newConnection();<br><br>        <span class="hljs-comment">// 创建频道</span><br>        Channel channel = connection.createChannel();<br><br>        <span class="hljs-comment">// 声明（创建）队列</span><br>        <span class="hljs-comment">/**</span><br><span class="hljs-comment">         * 参数1：队列名称</span><br><span class="hljs-comment">         * 参数2：是否定义持久化队列</span><br><span class="hljs-comment">         * 参数3：是否独占本次连接</span><br><span class="hljs-comment">         * 参数4：是否在不使用的时候自动删除队列</span><br><span class="hljs-comment">         * 参数5：队列其它参数</span><br><span class="hljs-comment">         */</span><br>        channel.queueDeclare(QUEUE_NAME, <span class="hljs-keyword">true</span>, <span class="hljs-keyword">false</span>, <span class="hljs-keyword">false</span>, <span class="hljs-keyword">null</span>);<br><br>        <span class="hljs-comment">// 要发送的信息</span><br>        String message = <span class="hljs-string">&quot;你好；小兔子！&quot;</span>;<br><br>        <span class="hljs-comment">/**</span><br><span class="hljs-comment">         * 参数1：交换机名称，如果没有指定则使用默认Default Exchage</span><br><span class="hljs-comment">         * 参数2：路由key,简单模式可以传递队列名称</span><br><span class="hljs-comment">         * 参数3：消息其它属性</span><br><span class="hljs-comment">         * 参数4：消息内容</span><br><span class="hljs-comment">         */</span><br>        channel.basicPublish(<span class="hljs-string">&quot;&quot;</span>, QUEUE_NAME, <span class="hljs-keyword">null</span>, message.getBytes());<br>        System.out.println(<span class="hljs-string">&quot;已发送消息：&quot;</span> + message);<br><br>        <span class="hljs-comment">// 关闭资源</span><br>        channel.close();<br>        connection.close();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
@@ -382,7 +382,7 @@
 <p>在执行上述的消息发送之后；可以登录rabbitMQ的管理控制台，可以发现队列和其消息</p>
 </li>
 </ol>
-<p><img src="/images/image2/image-20210731001205411.png" srcset="/img/loading.gif" lazyload alt="image-20210731001205411"></p>
+<p><img src="/images/image-20210731001205411.png" srcset="/img/loading.gif" lazyload alt="image-20210731001205411"></p>
 <ol start="4">
 <li><p>编写消费者</p>
 <p>由于连接部分都是相同的操作，我们把它抽取成工具类ConnectionUtil</p>
@@ -393,7 +393,7 @@
 </ol>
 <p><strong>小结</strong>  </p>
 <p>上述的入门案例中中其实使用的是如下的简单模式：</p>
-<p><img src="/images/image2/image-20210731002649177.png" srcset="/img/loading.gif" lazyload alt="image-20210731002649177"></p>
+<p><img src="/images/image-20210731002649177.png" srcset="/img/loading.gif" lazyload alt="image-20210731002649177"></p>
 <p>在上图的模型中，有以下概念：</p>
 <ul>
 <li>P：生产者，也就是要发送消息的程序</li>
@@ -401,7 +401,7 @@
 <li>queue：消息队列，图中红色部分，可以缓存消息；生产者向其中投递消息，消费者从其中取出消息。</li>
 </ul>
 <h2 id="4-2-Work-queues工作队列模式"><a href="#4-2-Work-queues工作队列模式" class="headerlink" title="4.2 Work queues工作队列模式"></a>4.2 Work queues工作队列模式</h2><p>模式说明</p>
-<p><img src="/images/image2/image-20210731133440033.png" srcset="/img/loading.gif" lazyload alt="image-20210731133440033"></p>
+<p><img src="/images/image-20210731133440033.png" srcset="/img/loading.gif" lazyload alt="image-20210731133440033"></p>
 <p><code>Work Queues</code>与入门程序的<code>简单模式</code>相比，多了一个或一些消费端，多个消费端共同消费同一个队列中的消息。</p>
 <p><strong>应用场景</strong>：对于任务过重或任务较多情况使用工作队列可以提高任务处理的速度。(多安排几个消费者去消费生产者的消息)</p>
 <p>代码和简单模式几乎一样，除了要多一个或几个消费者（基础环境和简单模式相同，这里就不赘叙了）：</p>
@@ -413,8 +413,8 @@
 <li><p>消费者2</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Consumer2</span> </span>&#123;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;<br>        Connection connection = ConnectionUtil.getConnection();<br><br>        <span class="hljs-comment">// 创建频道</span><br>        <span class="hljs-keyword">final</span> Channel channel = connection.createChannel();<br><br>        <span class="hljs-comment">// 声明（创建）队列</span><br>        <span class="hljs-comment">/**</span><br><span class="hljs-comment">         * 参数1：队列名称</span><br><span class="hljs-comment">         * 参数2：是否定义持久化队列</span><br><span class="hljs-comment">         * 参数3：是否独占本次连接</span><br><span class="hljs-comment">         * 参数4：是否在不使用的时候自动删除队列</span><br><span class="hljs-comment">         * 参数5：队列其它参数</span><br><span class="hljs-comment">         */</span><br>        channel.queueDeclare(Producer.QUEUE_NAME, <span class="hljs-keyword">true</span>, <span class="hljs-keyword">false</span>, <span class="hljs-keyword">false</span>, <span class="hljs-keyword">null</span>);<br><br>        <span class="hljs-comment">//一次只能接收并处理一个消息</span><br>        channel.basicQos(<span class="hljs-number">1</span>);<br><br>        <span class="hljs-comment">//创建消费者；并设置消息处理</span><br>        DefaultConsumer consumer = <span class="hljs-keyword">new</span> DefaultConsumer(channel) &#123;<br>            <span class="hljs-meta">@Override</span><br>            <span class="hljs-comment">/**</span><br><span class="hljs-comment">             * consumerTag 消息者标签，在channel.basicConsume时候可以指定</span><br><span class="hljs-comment">             * envelope 消息包的内容，可从中获取消息id，消息routingkey，交换机，消息和重传标志(收到消息失败后是否需要重新发送)</span><br><span class="hljs-comment">             * properties 属性信息</span><br><span class="hljs-comment">             * body 消息</span><br><span class="hljs-comment">             */</span><br>            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">handleDelivery</span><span class="hljs-params">(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, <span class="hljs-keyword">byte</span>[] body)</span> <span class="hljs-keyword">throws</span> IOException </span>&#123;<br>                <span class="hljs-keyword">try</span> &#123;<br>                    <span class="hljs-comment">//路由key</span><br>                    System.out.println(<span class="hljs-string">&quot;路由key为：&quot;</span> + envelope.getRoutingKey());<br>                    <span class="hljs-comment">//交换机</span><br>                    System.out.println(<span class="hljs-string">&quot;交换机为：&quot;</span> + envelope.getExchange());<br>                    <span class="hljs-comment">//消息id</span><br>                    System.out.println(<span class="hljs-string">&quot;消息id为：&quot;</span> + envelope.getDeliveryTag());<br>                    <span class="hljs-comment">//收到的消息</span><br>                    System.out.println(<span class="hljs-string">&quot;消费者2-接收到的消息为：&quot;</span> + <span class="hljs-keyword">new</span> String(body, <span class="hljs-string">&quot;utf-8&quot;</span>));<br>                    Thread.sleep(<span class="hljs-number">1000</span>);<br><br>                    <span class="hljs-comment">//确认消息</span><br>                    channel.basicAck(envelope.getDeliveryTag(), <span class="hljs-keyword">false</span>);<br>                &#125; <span class="hljs-keyword">catch</span> (InterruptedException e) &#123;<br>                    e.printStackTrace();<br>                &#125;<br>            &#125;<br>        &#125;;<br>        <span class="hljs-comment">//监听消息</span><br>        <span class="hljs-comment">/**</span><br><span class="hljs-comment">         * 参数1：队列名称</span><br><span class="hljs-comment">         * 参数2：是否自动确认，设置为true为表示消息接收到自动向mq回复接收到了，mq接收到回复会删除消息，设置为false则需要手动确认</span><br><span class="hljs-comment">         * 参数3：消息接收到后回调</span><br><span class="hljs-comment">         */</span><br>        channel.basicConsume(Producer.QUEUE_NAME, <span class="hljs-keyword">false</span>, consumer);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
 <li><p>测试启动两个消费者，然后再启动生产者发送消息；到IDEA的两个消费者对应的控制台查看是否竞争性的接收到消息</p>
-<p><img src="/images/image2/image-20210731225717102.png" srcset="/img/loading.gif" lazyload alt="image-20210731225717102"></p>
-<p><img src="/images/image2/image-20210731225747964.png" srcset="/img/loading.gif" lazyload alt="image-20210731225747964"></p>
+<p><img src="/images/image-20210731225717102.png" srcset="/img/loading.gif" lazyload alt="image-20210731225717102"></p>
+<p><img src="/images/image-20210731225747964.png" srcset="/img/loading.gif" lazyload alt="image-20210731225747964"></p>
 </li>
 </ol>
 <p>在一个队列中如果有多个消费者，那么消费者之间对于同一个消息的关系是<strong>竞争</strong>的关系</p>
@@ -425,7 +425,7 @@
 <li>queue：消息队列</li>
 </ul>
 <p>而在Publish/Subscribe模型中，多了一个exchange角色，而且过程略有变化：</p>
-<p><img src="/images/image2/image-20210731230311829-1627743833934.png" srcset="/img/loading.gif" lazyload alt="image-20210731230311829"></p>
+<p><img src="/images/image-20210731230311829-1627743833934.png" srcset="/img/loading.gif" lazyload alt="image-20210731230311829"></p>
 <ul>
 <li>P：生产者，也就是要发送消息的程序，但是不再发送到队列中，而是发给X（交换机）</li>
 <li>C：消费者，消息的接受者，会一直等待消息到来。</li>
@@ -454,7 +454,7 @@
 <li><p>测试</p>
 <p>启动所有消费者，然后使用生产者发送消息；在每个消费者对应的控制台可以查看到生产者发送的所有消息；到达<strong>广播</strong>的效果。</p>
 <p>在执行完测试代码后，其实到RabbitMQ的管理后台找到<code>Exchanges</code>选项卡，点击 <code>fanout_exchange</code> 的交换机，可以查看到如下的绑定：</p>
-<p><img src="/images/image2/image-20210731232129945.png" srcset="/img/loading.gif" lazyload alt="image-20210731232129945"></p>
+<p><img src="/images/image-20210731232129945.png" srcset="/img/loading.gif" lazyload alt="image-20210731232129945"></p>
 </li>
 </ol>
 <p>小结：交换机需要与队列进行绑定，绑定之后；一个消息可以被多个消费者都收到。</p>
@@ -466,7 +466,7 @@
 <li><p>消息的发送方在向Exchange发送消息时，也必须指定消息的 <code>RoutingKey</code>。</p>
 </li>
 <li><p>Exchange不再把消息交给每一个绑定的队列，而是根据消息的<code>Routing Key</code>进行判断，只有队列的<code>Routingkey</code>与消息的 <code>Routing key</code>完全一致，才会接收到消息</p>
-<p><img src="/images/image2/image-20210731232559366.png" srcset="/img/loading.gif" lazyload alt="image-20210731232559366"></p>
+<p><img src="/images/image-20210731232559366.png" srcset="/img/loading.gif" lazyload alt="image-20210731232559366"></p>
 </li>
 </ul>
 <p>图解：</p>
@@ -488,7 +488,7 @@
 <li><p>测试</p>
 <p>启动所有消费者，然后使用生产者发送消息；在消费者对应的控制台可以查看到生产者发送对应routing key对应队列的消息；到达<strong>按照需要接收</strong>的效果。</p>
 <p>在执行完测试代码后，其实到RabbitMQ的管理后台找到<code>Exchanges</code>选项卡，点击 <code>direct_exchange</code> 的交换机，可以查看到如下的绑定：</p>
-<p><img src="/images/image2/image-20210731233707317.png" srcset="/img/loading.gif" lazyload alt="image-20210731233707317"></p>
+<p><img src="/images/image-20210731233707317.png" srcset="/img/loading.gif" lazyload alt="image-20210731233707317"></p>
 </li>
 </ol>
 <p>小结：Routing模式要求队列在绑定交换机时要指定routing key，消息会转发到符合routing key的队列</p>
@@ -503,7 +503,7 @@
 <li><code>item.#</code>：能够匹配<code>item.insert.abc</code> 或者 <code>item.insert</code></li>
 <li><code>item.*</code>：只能匹配<code>item.insert</code></li>
 </ul>
-<p><img src="/images/image2/image-20210731234158546.png" srcset="/img/loading.gif" lazyload alt="image-20210731234158546"></p>
+<p><img src="/images/image-20210731234158546.png" srcset="/img/loading.gif" lazyload alt="image-20210731234158546"></p>
 <p><strong>代码</strong> </p>
 <ol>
 <li> 生产者</li>

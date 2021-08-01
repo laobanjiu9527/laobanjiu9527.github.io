@@ -216,7 +216,7 @@
             <h1 style="display: none">畅购商城项目</h1>
             
             <div class="markdown-body">
-              <h1 id="Part-01"><a href="#Part-01" class="headerlink" title="Part-01"></a>Part-01</h1><h2 id="1-框架搭建"><a href="#1-框架搭建" class="headerlink" title="1. 框架搭建"></a>1. 框架搭建</h2><h3 id="1-1-项目结构说明"><a href="#1-1-项目结构说明" class="headerlink" title="1.1 项目结构说明"></a>1.1 项目结构说明</h3><p><img src="/images/image1/image-20210726205356384.png" srcset="/img/loading.gif" lazyload alt="image-20210726205356384"></p>
+              <h1 id="Part-01"><a href="#Part-01" class="headerlink" title="Part-01"></a>Part-01</h1><h2 id="1-框架搭建"><a href="#1-框架搭建" class="headerlink" title="1. 框架搭建"></a>1. 框架搭建</h2><h3 id="1-1-项目结构说明"><a href="#1-1-项目结构说明" class="headerlink" title="1.1 项目结构说明"></a>1.1 项目结构说明</h3><p><img src="/images/image-20210726205356384.png" srcset="/img/loading.gif" lazyload alt="image-20210726205356384"></p>
 <p>各个包的用途</p>
 <ul>
 <li><p>changgou_auth:  （目前还不是太理解这一部分的作用）</p>
@@ -224,7 +224,7 @@
 <li><p>changgou_common: 用来放返回给前端的result</p>
 </li>
 </ul>
-<p><img src="/images/image1/image-20210726205734286.png" srcset="/img/loading.gif" lazyload alt="image-20210726205734286"></p>
+<p><img src="/images/image-20210726205734286.png" srcset="/img/loading.gif" lazyload alt="image-20210726205734286"></p>
 <ul>
 <li>changgou_common_db:  （目前还不是太理解这一部分的作用）</li>
 <li>changgou_eureka: 微服务的注册中心，获取不同微服务的地址，便于通信</li>
@@ -268,7 +268,7 @@
 <li><p>引入 pom.xml 文件依赖（redis, operfeign这俩依赖目前还不知道其用途）</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependencies</span>&gt;</span><br>       <span class="hljs-comment">&lt;!--web起步依赖。这里导入他，是因为这个包的目的就是创建实体类并将结果封装返回给前端--&gt;</span><br>       <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>           <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>           <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>       <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br>       <span class="hljs-comment">&lt;!-- redis 使用--&gt;</span><br>       <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>           <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>           <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-starter-data-redis<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>       <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br>       <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>        <span class="hljs-comment">&lt;!--这里的响应结果和前端请求的格式都是json格式，所以需要这个包--&gt;</span>    <br>           <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.alibaba<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>           <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>fastjson<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>           <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>1.2.51<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>       <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br>       <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>           <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.cloud<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>           <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-cloud-starter-netflix-eureka-client<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>       <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br>       <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>           <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.cloud<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>           <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-cloud-starter-openfeign<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>       <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br>   <span class="hljs-tag">&lt;/<span class="hljs-name">dependencies</span>&gt;</span><br></code></pre></td></tr></table></figure></li>
 <li><p>创建 com.changgou.entity 包，包下封装相关公共实体类。（这里的entity实体类就按照模板来就行了，因为它是用来和前端交互信息的，写法比较固定）</p>
-<p><img src="/images/image1/image-20210726220028054.png" srcset="/img/loading.gif" lazyload alt="image-20210726220028054"></p>
+<p><img src="/images/image-20210726220028054.png" srcset="/img/loading.gif" lazyload alt="image-20210726220028054"></p>
 </li>
 </ol>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 返回结果实体类</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> &lt;T&gt;</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Result</span>&lt;<span class="hljs-title">T</span>&gt; </span>&#123;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">boolean</span> flag;<span class="hljs-comment">//是否成功</span><br>    <span class="hljs-keyword">private</span> Integer code;<span class="hljs-comment">//返回码</span><br>    <span class="hljs-keyword">private</span> String message;<span class="hljs-comment">//返回消息</span><br><br>    <span class="hljs-keyword">private</span> T data;<span class="hljs-comment">//返回数据</span><br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Result</span><span class="hljs-params">(<span class="hljs-keyword">boolean</span> flag, Integer code, String message, Object data)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.flag = flag;<br>        <span class="hljs-keyword">this</span>.code = code;<br>        <span class="hljs-keyword">this</span>.message = message;<br>        <span class="hljs-keyword">this</span>.data = (T)data;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Result</span><span class="hljs-params">(<span class="hljs-keyword">boolean</span> flag, Integer code, String message)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.flag = flag;<br>        <span class="hljs-keyword">this</span>.code = code;<br>        <span class="hljs-keyword">this</span>.message = message;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Result</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.flag = <span class="hljs-keyword">true</span>;<br>        <span class="hljs-keyword">this</span>.code = StatusCode.OK;<br>        <span class="hljs-keyword">this</span>.message = <span class="hljs-string">&quot;执行成功&quot;</span>;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isFlag</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> flag;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setFlag</span><span class="hljs-params">(<span class="hljs-keyword">boolean</span> flag)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.flag = flag;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Integer <span class="hljs-title">getCode</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> code;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setCode</span><span class="hljs-params">(Integer code)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.code = code;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getMessage</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> message;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setMessage</span><span class="hljs-params">(String message)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.message = message;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> T <span class="hljs-title">getData</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> data;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setData</span><span class="hljs-params">(T data)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.data = data;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
@@ -360,12 +360,12 @@
 </tr>
 </tbody></table>
 <h3 id="2-1-代码实现"><a href="#2-1-代码实现" class="headerlink" title="2.1 代码实现"></a>2.1 代码实现</h3><p>商品类的整体包结构还是三层架构</p>
-<p><img src="/images/image1/image-20210727122004680.png" srcset="/img/loading.gif" lazyload alt="image-20210727122004680"></p>
+<p><img src="/images/image-20210727122004680.png" srcset="/img/loading.gif" lazyload alt="image-20210727122004680"></p>
 <h4 id="2-1-1-品牌列表"><a href="#2-1-1-品牌列表" class="headerlink" title="2.1.1 品牌列表"></a>2.1.1 品牌列表</h4><ol>
 <li>在changgou_service_goods_api创建com.changgou.goods.pojo包，pojo包下创建 Brand实体类</li>
 </ol>
-<p><img src="/images/image1/image-20210727120159612.png" srcset="/img/loading.gif" lazyload alt="image-20210727120159612"></p>
-<p>​    <img src="/images/image1/image-20210727120235587.png" srcset="/img/loading.gif" lazyload alt="image-20210727120235587"></p>
+<p><img src="/images/image-20210727120159612.png" srcset="/img/loading.gif" lazyload alt="image-20210727120159612"></p>
+<p>​    <img src="/images/image-20210727120235587.png" srcset="/img/loading.gif" lazyload alt="image-20210727120235587"></p>
 <p>​    注意实体类中的<code>@Table(name=&quot;tb_brand&quot;)</code>和<code>@Id</code>这俩注解</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.changgou.goods.pojo;<br><br><span class="hljs-keyword">import</span> javax.persistence.Id;<br><span class="hljs-keyword">import</span> javax.persistence.Table;<br><span class="hljs-keyword">import</span> java.io.Serializable;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * brand实体类</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@Table(name=&quot;tb_brand&quot;)</span>  <span class="hljs-comment">//表明这个类和mysql数据库中的 tb_brand 相对应</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Brand</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Serializable</span> </span>&#123;<br><br>	<span class="hljs-meta">@Id</span>  <span class="hljs-comment">//表明id是表的主键</span><br>	<span class="hljs-keyword">private</span> Integer id;<span class="hljs-comment">//品牌id</span><br><br><br>	<br>	<span class="hljs-keyword">private</span> String name;<span class="hljs-comment">//品牌名称</span><br>	<span class="hljs-keyword">private</span> String image;<span class="hljs-comment">//品牌图片地址</span><br>	<span class="hljs-keyword">private</span> String letter;<span class="hljs-comment">//品牌的首字母</span><br>	<span class="hljs-keyword">private</span> Integer seq;<span class="hljs-comment">//排序</span><br><br>	<br>	<span class="hljs-function"><span class="hljs-keyword">public</span> Integer <span class="hljs-title">getId</span><span class="hljs-params">()</span> </span>&#123;<br>		<span class="hljs-keyword">return</span> id;<br>	&#125;<br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setId</span><span class="hljs-params">(Integer id)</span> </span>&#123;<br>		<span class="hljs-keyword">this</span>.id = id;<br>	&#125;<br><br>	<span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getName</span><span class="hljs-params">()</span> </span>&#123;<br>		<span class="hljs-keyword">return</span> name;<br>	&#125;<br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setName</span><span class="hljs-params">(String name)</span> </span>&#123;<br>		<span class="hljs-keyword">this</span>.name = name;<br>	&#125;<br><br>	<span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getImage</span><span class="hljs-params">()</span> </span>&#123;<br>		<span class="hljs-keyword">return</span> image;<br>	&#125;<br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setImage</span><span class="hljs-params">(String image)</span> </span>&#123;<br>		<span class="hljs-keyword">this</span>.image = image;<br>	&#125;<br><br>	<span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getLetter</span><span class="hljs-params">()</span> </span>&#123;<br>		<span class="hljs-keyword">return</span> letter;<br>	&#125;<br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setLetter</span><span class="hljs-params">(String letter)</span> </span>&#123;<br>		<span class="hljs-keyword">this</span>.letter = letter;<br>	&#125;<br><br>	<span class="hljs-function"><span class="hljs-keyword">public</span> Integer <span class="hljs-title">getSeq</span><span class="hljs-params">()</span> </span>&#123;<br>		<span class="hljs-keyword">return</span> seq;<br>	&#125;<br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setSeq</span><span class="hljs-params">(Integer seq)</span> </span>&#123;<br>		<span class="hljs-keyword">this</span>.seq = seq;<br>	&#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
 
@@ -414,10 +414,10 @@
 <figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs pgsql"><span class="hljs-keyword">No</span> <span class="hljs-string">&#x27;Access-Control-Allow-Origin&#x27;</span> <span class="hljs-keyword">header</span> <span class="hljs-keyword">is</span> present <span class="hljs-keyword">on</span> the requested resource. <br>Origin <span class="hljs-string">&#x27;http://localhost:9100&#x27;</span> <span class="hljs-keyword">is</span> therefore <span class="hljs-keyword">not</span> allowed <span class="hljs-keyword">access</span>. The response had HTTP status code <span class="hljs-number">400.</span><br></code></pre></td></tr></table></figure>
 
 <h2 id="2-通用mapper自定义方法"><a href="#2-通用mapper自定义方法" class="headerlink" title="2. 通用mapper自定义方法"></a>2. 通用<strong>mapper</strong>自定义方法</h2><h3 id="2-1-根据商品分类名称查询品牌列表"><a href="#2-1-根据商品分类名称查询品牌列表" class="headerlink" title="2.1 根据商品分类名称查询品牌列表"></a>2.1 根据商品分类名称查询品牌列表</h3><h4 id="2-1-1-表结构分析"><a href="#2-1-1-表结构分析" class="headerlink" title="2.1.1 表结构分析"></a>2.1.1 表结构分析</h4><p>已知分类与品牌之间的关系属于多对多关系, 通过中间表建立关系</p>
-<p><img src="/images/image1/image-20210727132544864.png" srcset="/img/loading.gif" lazyload alt="image-20210727132544864"></p>
-<p>​    <img src="/images/image1/image-20210727132633929.png" srcset="/img/loading.gif" lazyload alt="image-20210727132633929"></p>
-<p><img src="/images/image1/image-20210727132720929.png" srcset="/img/loading.gif" lazyload alt="image-20210727132720929"></p>
-<p><img src="/images/image1/image-20210727132809184.png" srcset="/img/loading.gif" lazyload alt="image-20210727132809184"></p>
+<p><img src="/images/image-20210727132544864.png" srcset="/img/loading.gif" lazyload alt="image-20210727132544864"></p>
+<p>​    <img src="/images/image-20210727132633929.png" srcset="/img/loading.gif" lazyload alt="image-20210727132633929"></p>
+<p><img src="/images/image-20210727132720929.png" srcset="/img/loading.gif" lazyload alt="image-20210727132720929"></p>
+<p><img src="/images/image-20210727132809184.png" srcset="/img/loading.gif" lazyload alt="image-20210727132809184"></p>
 <h4 id="2-1-2-代码实现"><a href="#2-1-2-代码实现" class="headerlink" title="2.1.2 代码实现"></a>2.1.2 代码实现</h4><p>由于这是一个复杂查询, Mapper<T>接口中的方法无法直接实现, 所以需要自己定义</p>
 <ol>
 <li><p>修改dao包中的BrandMapper，BrandMapper中新增方法定义 </p>
@@ -432,12 +432,12 @@
 <h2 id="3-分布式文件存储-FastDFS"><a href="#3-分布式文件存储-FastDFS" class="headerlink" title="3. 分布式文件存储-FastDFS"></a>3. 分布式文件存储-FastDFS</h2><h3 id="3-1-FastDFS简介"><a href="#3-1-FastDFS简介" class="headerlink" title="3.1 FastDFS简介"></a>3.1 FastDFS简介</h3><p>FastDFS是一个开源的轻量级分布式文件系统，它对文件进行管理，功能包括：文件存储、文件同步、文件访问（文件上传、文件下载）等，解决了大容量存储和负载均衡的问题。特别适合以文件为载体的在线服务，如相册网站、视频网站等等。</p>
 <p>FastDFS 架构包括 Tracker server 和 Storage server。客户端请求 Tracker server 进行文件上传、下载，通过Tracker server 调度最终由 Storage server 完成文件上传和下载。</p>
 <p>Tracker server 作用是负载均衡和调度，通过 Tracker server 在文件上传时可以根据一些策略找到Storage server 提供文件上传服务。可以将 tracker 称为追踪服务器或调度服务器。Storage server 作用是文件存储，客户端上传的文件最终存储在 Storage 服务器上，Stora-geserver 没有实现自己的文件系统而是利用操作系统的文件系统来管理文件。 可以将storage称为存储服务器。 </p>
-<img src="/images/image1/image-20210727134921556.png" srcset="/img/loading.gif" lazyload alt="image-20210727134921556" style="zoom: 67%;" />
+<img src="/images/image-20210727134921556.png" srcset="/img/loading.gif" lazyload alt="image-20210727134921556" style="zoom: 67%;" />
 
-<h3 id="3-2-上传流程"><a href="#3-2-上传流程" class="headerlink" title="3.2 上传流程"></a>3.2 上传流程</h3><img src="/images/image1/image-20210727135143849.png" srcset="/img/loading.gif" lazyload alt="image-20210727135143849" style="zoom:67%;" />
+<h3 id="3-2-上传流程"><a href="#3-2-上传流程" class="headerlink" title="3.2 上传流程"></a>3.2 上传流程</h3><img src="/images/image-20210727135143849.png" srcset="/img/loading.gif" lazyload alt="image-20210727135143849" style="zoom:67%;" />
 
 <p>客户端上传文件后存储服务器将文件 ID 返回给客户端，此文件 ID 用于以后访问该文件的索引信息。文件索引信息包括：组名，虚拟磁盘路径，数据两级目录，文件名。 </p>
-<p><img src="/images/image1/image-20210727135358878.png" srcset="/img/loading.gif" lazyload alt="image-20210727135358878"></p>
+<p><img src="/images/image-20210727135358878.png" srcset="/img/loading.gif" lazyload alt="image-20210727135358878"></p>
 <p><strong>组名</strong>：文件上传后所在的 storage 组名称，在文件上传成功后有storage 服务器返回，需要客户端自行保存。</p>
 <p><strong>虚拟磁盘路径</strong>：storage 配置的虚拟路径，与磁盘选项store_path对应。如果配置了store_path0 则是 M00，如果配置了 store_path1 则是 M01，以此类推。</p>
 <p><strong>数据两级目录</strong>：storage 服务器在每个虚拟磁盘路径下创建的两级目录，用于存储数据文件。</p>
@@ -514,7 +514,7 @@
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@PostMapping(&quot;/login&quot;)</span>  <span class="hljs-comment">//post 表示会传递json串过来</span><br>   <span class="hljs-function"><span class="hljs-keyword">public</span> Result <span class="hljs-title">login</span><span class="hljs-params">(<span class="hljs-meta">@RequestBody</span> Admin admin)</span></span>&#123;<br>       <span class="hljs-keyword">boolean</span> login = adminService.login(admin);<br>       <span class="hljs-keyword">if</span> (login)&#123;<br>           <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Result(<span class="hljs-keyword">true</span>, StatusCode.OK, <span class="hljs-string">&quot;登录成功&quot;</span>);<br>       &#125; <span class="hljs-keyword">else</span> &#123;<br>           <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Result(<span class="hljs-keyword">false</span>, StatusCode.LOGINERROR, <span class="hljs-string">&quot;用户名或密码错误&quot;</span>);<br>       &#125;<br>   &#125;<br></code></pre></td></tr></table></figure></li>
 </ol>
-<h2 id="2-JWT-实现微服务鉴权"><a href="#2-JWT-实现微服务鉴权" class="headerlink" title="2. JWT 实现微服务鉴权"></a>2. <strong>JWT</strong> 实现微服务鉴权</h2><h3 id="2-1-什么是微服务鉴权"><a href="#2-1-什么是微服务鉴权" class="headerlink" title="2.1 什么是微服务鉴权"></a>2.1 什么是微服务鉴权</h3><img src="/images/image1/image-20210727205423816.png" srcset="/img/loading.gif" lazyload alt="image-20210727205423816"  />
+<h2 id="2-JWT-实现微服务鉴权"><a href="#2-JWT-实现微服务鉴权" class="headerlink" title="2. JWT 实现微服务鉴权"></a>2. <strong>JWT</strong> 实现微服务鉴权</h2><h3 id="2-1-什么是微服务鉴权"><a href="#2-1-什么是微服务鉴权" class="headerlink" title="2.1 什么是微服务鉴权"></a>2.1 什么是微服务鉴权</h3><img src="/images/image-20210727205423816.png" srcset="/img/loading.gif" lazyload alt="image-20210727205423816"  />
 
 <p>我们可以采用JWT的方式来实现鉴权校验。</p>
 <h3 id="2-2-JWT"><a href="#2-2-JWT" class="headerlink" title="2.2 JWT"></a>2.2 <strong>JWT</strong></h3><p>JSON Web Token（JWT）是一个非常轻巧的规范。这个规范允许我们使用JWT在用户和服务器之间传递安全可靠的信息。</p>
@@ -564,7 +564,7 @@
 
 <p>试着将token或签名秘钥(代码里面的<code>&quot;itcast&quot;</code>字符串)篡改一下，会发现运行时就会报错，所以解析token也就是验证token.</p>
 <p>还可以设置token的过期时间，自定义claims(载荷里的键值对)等。具体用法可以上网查也可以看本地笔记。</p>
-<h3 id="2-4-畅购微服务鉴权代码实现"><a href="#2-4-畅购微服务鉴权代码实现" class="headerlink" title="2.4 畅购微服务鉴权代码实现"></a>2.4 畅购微服务鉴权代码实现</h3><h4 id="2-4-1-思路分析"><a href="#2-4-1-思路分析" class="headerlink" title="2.4.1 思路分析"></a>2.4.1 思路分析</h4><img src="/images/image1/image-20210727225002149.png" srcset="/img/loading.gif" lazyload alt="image-20210727225002149" style="zoom:80%;" />
+<h3 id="2-4-畅购微服务鉴权代码实现"><a href="#2-4-畅购微服务鉴权代码实现" class="headerlink" title="2.4 畅购微服务鉴权代码实现"></a>2.4 畅购微服务鉴权代码实现</h3><h4 id="2-4-1-思路分析"><a href="#2-4-1-思路分析" class="headerlink" title="2.4.1 思路分析"></a>2.4.1 思路分析</h4><img src="/images/image-20210727225002149.png" srcset="/img/loading.gif" lazyload alt="image-20210727225002149" style="zoom:80%;" />
 
 <ol>
 <li>用户进入网关开始登陆，网关过滤器进行判断，如果是登录，则路由到后台管理微服务进行登录</li>
@@ -594,7 +594,7 @@
 <h1 id="Part-04-商品管理"><a href="#Part-04-商品管理" class="headerlink" title="Part-04 商品管理"></a>Part-04 商品管理</h1><h2 id="1-分布式ID生成解决方案"><a href="#1-分布式ID生成解决方案" class="headerlink" title="1. 分布式ID生成解决方案"></a>1. 分布式<strong>ID</strong>生成解决方案</h2><p>数据太多导致数据库单表性能下降，需要对数据库进行分库分表、数据库多实例部署等，如果此时这张表还按照主键自增，因为已经不在一个机器上了，这种方式会使主键重复。为了避免ID重复，因此需要分布式ID</p>
 <h3 id="1-1-分布式ID生成解决方案"><a href="#1-1-分布式ID生成解决方案" class="headerlink" title="1.1 分布式ID生成解决方案"></a>1.1 分布式<strong>ID</strong>生成解决方案</h3><p>UUID, Redis, 开源算法<strong>snowflake</strong> 都可以实现分布式ID。这里主要讲下开源算法<strong>snowflake</strong> ，其他的如果用到去网上搜博客深入学习。</p>
 <h4 id="1-1-1-开源算法snowflake"><a href="#1-1-1-开源算法snowflake" class="headerlink" title="1.1.1 开源算法snowflake"></a>1.1.1 开源算法<strong>snowflake</strong></h4><p>snowflake是Twitter开源的分布式ID生成算法，结果是一个long型（8字节，64位）的ID。其核心思想是：使用41bit作为毫秒数，10bit作为机器的ID（5个bit是数据中心，5个bit的机器ID），12bit作为毫秒内的流水号（意味着每个节点在每毫秒可以产生 4096 个 ID），最后还有一个符号位，永远是0</p>
-<img src="/images/image1/image-20210728121416974.png" srcset="/img/loading.gif" lazyload alt="image-20210728121416974" style="zoom:80%;" />
+<img src="/images/image-20210728121416974.png" srcset="/img/loading.gif" lazyload alt="image-20210728121416974" style="zoom:80%;" />
 
 <p>快速入门</p>
 <ol>
@@ -628,10 +628,10 @@
 </li>
 </ul>
 <h4 id="2-1-2-表结构分析"><a href="#2-1-2-表结构分析" class="headerlink" title="2.1.2 表结构分析"></a><strong>2.1.2</strong> 表结构分析</h4><p>tb_spu 表 （SPU表）</p>
-<img src="/images/image1/image-20210728142103218.png" srcset="/img/loading.gif" lazyload alt="image-20210728142103218"  />
+<img src="/images/image-20210728142103218.png" srcset="/img/loading.gif" lazyload alt="image-20210728142103218"  />
 
 <p>tb_sku 表（SKU商品表）</p>
-<p><img src="/images/image1/image-20210728142351938.png" srcset="/img/loading.gif" lazyload alt="image-20210728142351938"></p>
+<p><img src="/images/image-20210728142351938.png" srcset="/img/loading.gif" lazyload alt="image-20210728142351938"></p>
 <h3 id="2-2-代码实现"><a href="#2-2-代码实现" class="headerlink" title="2.2 代码实现"></a><strong>2.2</strong> 代码实现</h3><h4 id="2-2-1-SPU与SKU列表的保存"><a href="#2-2-1-SPU与SKU列表的保存" class="headerlink" title="2.2.1 SPU与SKU列表的保存"></a>2.2.1 <strong>SPU</strong>与<strong>SKU</strong>列表的保存</h4><ol>
 <li><p>changgou_service_goods_api工程的pojo包中创建组合实体类Goods </p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Goods</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Serializable</span></span>&#123;<br><br>    <span class="hljs-keyword">private</span> Spu spu;<br>    <span class="hljs-keyword">private</span> List&lt;Sku&gt; skuList;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Spu <span class="hljs-title">getSpu</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> spu;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setSpu</span><span class="hljs-params">(Spu spu)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.spu = spu;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;Sku&gt; <span class="hljs-title">getSkuList</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> skuList;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setSkuList</span><span class="hljs-params">(List&lt;Sku&gt; skuList)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.skuList = skuList;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
@@ -780,9 +780,9 @@
 </ul>
 <h3 id="1-2-lua的安装"><a href="#1-2-lua的安装" class="headerlink" title="1.2 lua的安装"></a>1.2 lua的安装</h3><p>这里省略，有需要去搜具体博客或者本地笔记查看</p>
 <h3 id="1-3-快速入门"><a href="#1-3-快速入门" class="headerlink" title="1.3 快速入门"></a>1.3 快速入门</h3><p>开启和关闭(ctrl + c)lua命令行交互</p>
-<p><img src="/images/image1/image-20210729135124466.png" srcset="/img/loading.gif" lazyload alt="image-20210729135124466"></p>
+<p><img src="/images/image-20210729135124466.png" srcset="/img/loading.gif" lazyload alt="image-20210729135124466"></p>
 <p>创建hello.lua文件，执行语句：</p>
-<p><img src="/images/image1/image-20210729134904915.png" srcset="/img/loading.gif" lazyload alt="image-20210729134904915"></p>
+<p><img src="/images/image-20210729134904915.png" srcset="/img/loading.gif" lazyload alt="image-20210729134904915"></p>
 <h3 id="1-4-LUA的基本语法"><a href="#1-4-LUA的基本语法" class="headerlink" title="1.4 LUA的基本语法"></a>1.4 LUA的基本语法</h3><ul>
 <li>lua有交互式编程和脚本式编程。一般采用脚本式编程。</li>
 </ul>
@@ -915,13 +915,13 @@
 <li>需要在首页页面不同位置处显示相应的广告</li>
 </ul>
 <h3 id="2-1-nginx"><a href="#2-1-nginx" class="headerlink" title="2.1 nginx"></a>2.1 nginx</h3><p>负载均衡功能</p>
-<img src="/images/image1/image-20210729153602339.png" srcset="/img/loading.gif" lazyload alt="image-20210729153602339" style="zoom: 80%;" />
+<img src="/images/image-20210729153602339.png" srcset="/img/loading.gif" lazyload alt="image-20210729153602339" style="zoom: 80%;" />
 
 <p>反向代理功能</p>
-<img src="/images/image1/image-20210729153737126.png" srcset="/img/loading.gif" lazyload alt="image-20210729153737126" style="zoom:80%;" />
+<img src="/images/image-20210729153737126.png" srcset="/img/loading.gif" lazyload alt="image-20210729153737126" style="zoom:80%;" />
 
 <p>http服务器功能</p>
-<img src="/images/image1/image-20210729153818568.png" srcset="/img/loading.gif" lazyload alt="image-20210729153818568" style="zoom:80%;" />
+<img src="/images/image-20210729153818568.png" srcset="/img/loading.gif" lazyload alt="image-20210729153818568" style="zoom:80%;" />
 
 <h3 id="2-2-OpenResty"><a href="#2-2-OpenResty" class="headerlink" title="2.2 OpenResty"></a>2.2 OpenResty</h3><h4 id="2-2-1-OpenResty介绍"><a href="#2-2-1-OpenResty介绍" class="headerlink" title="2.2.1 OpenResty介绍"></a>2.2.1 OpenResty介绍</h4><p>OpenResty(又称：ngx_openresty) 是一个基于 NGINX 的可伸缩的 Web 平台，由中国人章亦春发起，提供了很多高质量的第三方模块。</p>
 <p>OpenResty 是一个强大的 Web 应用服务器，Web 开发人员可以使用 Lua 脚本语言调动 Nginx 支持的各种 C 以及 Lua 模块,更主要的是在性能方面，OpenResty可以 快速构造出足以胜任 10K 乃至1000K以上并发连接响应的超高性能 Web 应用系统。</p>
@@ -933,7 +933,7 @@
 <figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs crmsh"><span class="hljs-comment">#user nobody; 配置文件第一行原来为这样, 现改为下面的配置</span><br><span class="hljs-keyword">user</span> <span class="hljs-title">root</span> root;<br></code></pre></td></tr></table></figure>
 
 <p>测试访问 <a target="_blank" rel="noopener" href="http://192.168.200.128/">http://192.168.200.128</a></p>
-<img src="/images/image1/image-20210729154301413.png" srcset="/img/loading.gif" lazyload alt="image-20210729154301413" style="zoom: 67%;" />
+<img src="/images/image-20210729154301413.png" srcset="/img/loading.gif" lazyload alt="image-20210729154301413" style="zoom: 67%;" />
 
 <h3 id="2-3-实现思路"><a href="#2-3-实现思路" class="headerlink" title="2.3 实现思路"></a>2.3 实现思路</h3><h4 id="2-3-1-表结构分析"><a href="#2-3-1-表结构分析" class="headerlink" title="2.3.1 表结构分析"></a>2.3.1 表结构分析</h4><p>tb_ad （广告表）</p>
 <table>
@@ -1054,9 +1054,9 @@
 </tbody></table>
 <h4 id="2-3-2-缓存预热与二级缓存查询"><a href="#2-3-2-缓存预热与二级缓存查询" class="headerlink" title="2.3.2 缓存预热与二级缓存查询"></a>2.3.2 缓存预热与二级缓存查询</h4><ol>
 <li><p>编写lua脚本实现缓存预热（将mysql里的数据查询出来存入redis）</p>
-<img src="/images/image1/image-20210729154726183.png" srcset="/img/loading.gif" lazyload alt="image-20210729154726183" style="zoom:80%;" /></li>
+<img src="/images/image-20210729154726183.png" srcset="/img/loading.gif" lazyload alt="image-20210729154726183" style="zoom:80%;" /></li>
 <li><p>编写lua脚本实现二级缓存读取</p>
-<img src="/images/image1/image-20210729154821590.png" srcset="/img/loading.gif" lazyload alt="image-20210729154821590" style="zoom:80%;" />
+<img src="/images/image-20210729154821590.png" srcset="/img/loading.gif" lazyload alt="image-20210729154821590" style="zoom:80%;" />
 
 <p>就是说客户端查询的时候先查询本地缓存</p>
 </li>
@@ -1103,9 +1103,9 @@
 
 <h4 id="2-4-4-前端页面实现（了解）"><a href="#2-4-4-前端页面实现（了解）" class="headerlink" title="2.4.4 前端页面实现（了解）"></a>2.4.4 前端页面实现（了解）</h4><p>这里先不学，有需要再说。</p>
 <p>待更改完成后用FileZilla连接服务器（在这里就是那台linux虚拟机）</p>
-<p><img src="/images/image1/image-20210729213014273.png" srcset="/img/loading.gif" lazyload alt="image-20210729213014273"></p>
+<p><img src="/images/image-20210729213014273.png" srcset="/img/loading.gif" lazyload alt="image-20210729213014273"></p>
 <p>连接成功后，把本地的前端页面以及其样式设置的文件和文件夹全部都拷贝到服务器上nginx目录下的html文件夹中</p>
-<p><img src="/images/image1/image-20210729213222244.png" srcset="/img/loading.gif" lazyload alt="image-20210729213222244"></p>
+<p><img src="/images/image-20210729213222244.png" srcset="/img/loading.gif" lazyload alt="image-20210729213222244"></p>
 <p>最后更改nginx.conf的配置</p>
 <figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-comment"># 加载首页</span><br>      <span class="hljs-attribute">location</span> / &#123;<br>          <span class="hljs-attribute">root</span>   html;  <span class="hljs-comment"># 表明页面文件都部署在html文件夹下</span><br>          <span class="hljs-attribute">index</span>  index.html index.htm;  <span class="hljs-comment"># 表明location对应的主页页面</span><br>      &#125;<br></code></pre></td></tr></table></figure>
 
@@ -1139,7 +1139,7 @@
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs awk">cd <span class="hljs-regexp">/usr/</span>local<span class="hljs-regexp">/openresty/</span>nginx/sbin<br><br>./nginx -s reload<br></code></pre></td></tr></table></figure>
 
 <p>快速点击，会报错</p>
-<p><img src="/images/image1/image-20210729220115898.png" srcset="/img/loading.gif" lazyload alt="image-20210729220115898"></p>
+<p><img src="/images/image-20210729220115898.png" srcset="/img/loading.gif" lazyload alt="image-20210729220115898"></p>
 </li>
 </ul>
 <h4 id="3-1-2-处理突发流量"><a href="#3-1-2-处理突发流量" class="headerlink" title="3.1.2 处理突发流量"></a>3.1.2 处理突发流量</h4><p>上面例子限制 2r/s，如果有时正常流量突然增大，超出的请求将被拒绝，无法处理突发流量，可以结合 <strong>burst</strong> 参数使用来解决该问题。</p>
@@ -1164,7 +1164,7 @@
 <h1 id="Part-06-数据同步解决方案-canal"><a href="#Part-06-数据同步解决方案-canal" class="headerlink" title="Part-06 数据同步解决方案-canal"></a>Part-06 数据同步解决方案-canal</h1><h2 id="1-canal"><a href="#1-canal" class="headerlink" title="1. canal"></a>1. canal</h2><h3 id="1-1-canal简介"><a href="#1-1-canal简介" class="headerlink" title="1.1 canal简介"></a>1.1 canal简介</h3><p>canal可以用来监控数据库数据的变化，从而获得新增数据，或者修改的数据。</p>
 <p>canal是应对阿里巴巴存在杭州和美国的双机房部署，存在跨机房同步的业务需求而提出的。</p>
 <p>阿里系公司开始逐步的尝试基于数据库的日志解析，获取增量变更进行同步，由此衍生出了增量订阅&amp;消费的业务。</p>
-<img src="/images/image1/image-20210730122738581.png" srcset="/img/loading.gif" lazyload alt="image-20210730122738581" style="zoom:80%;" />
+<img src="/images/image-20210730122738581.png" srcset="/img/loading.gif" lazyload alt="image-20210730122738581" style="zoom:80%;" />
 
 <p>原理相对比较简单：(这里不是太理解)</p>
 <ol>
@@ -1180,16 +1180,16 @@
 <li><p>打开网址 <a target="_blank" rel="noopener" href="https://github.com/chenqian56131/spring-boot-starter-canal">https://github.com/chenqian56131/spring-boot-starter-canal</a> 下载 spring-boot-starter-canal。（下载到本地的磁盘位置可随便选）</p>
 </li>
 <li><p>下载完成后解压，并打开文件夹到有pom.xml文件的那一级</p>
-<img src="/images/image1/image-20210730125655100.png" srcset="/img/loading.gif" lazyload alt="image-20210730125655100" style="zoom:80%;" /></li>
+<img src="/images/image-20210730125655100.png" srcset="/img/loading.gif" lazyload alt="image-20210730125655100" style="zoom:80%;" /></li>
 <li><p>在此处输入mvn命令</p>
 <p>注意：</p>
 <ul>
 <li>DskipTests 表明安装的时候跳过测试</li>
 </ul>
-<p><img src="/images/image1/image-20210730125838140.png" srcset="/img/loading.gif" lazyload alt="image-20210730125838140"></p>
+<p><img src="/images/image-20210730125838140.png" srcset="/img/loading.gif" lazyload alt="image-20210730125838140"></p>
 </li>
 <li><p>BUILD SUCCESS以后可以在本地的maven仓库看到一个xpand包</p>
-<p><img src="/images/image1/image-20210730130053149.png" srcset="/img/loading.gif" lazyload alt="image-20210730130053149"></p>
+<p><img src="/images/image-20210730130053149.png" srcset="/img/loading.gif" lazyload alt="image-20210730130053149"></p>
 </li>
 </ol>
 <h4 id="1-3-1-微服务搭建"><a href="#1-3-1-微服务搭建" class="headerlink" title="1.3.1 微服务搭建"></a>1.3.1 微服务搭建</h4><ol>
@@ -1219,13 +1219,13 @@
 <li><p>修改数据监控微服务，监控tb_ad表，当发生增删改操作时，提取position值（广告位置key），发送到rabbitmq</p>
 </li>
 <li><p>从rabbitmq中提取消息，通过OkHttpClient调用ad_update来实现对广告缓存数据的更新。</p>
-<img src="/images/image1/image-20210730193803227.png" srcset="/img/loading.gif" lazyload alt="image-20210730193803227" style="zoom:80%;" /></li>
+<img src="/images/image-20210730193803227.png" srcset="/img/loading.gif" lazyload alt="image-20210730193803227" style="zoom:80%;" /></li>
 </ol>
 <p>这个图要理解</p>
 <h3 id="2-3-代码实现"><a href="#2-3-代码实现" class="headerlink" title="2.3 代码实现"></a>2.3 代码实现</h3><h4 id="2-3-1-发送消息到mq"><a href="#2-3-1-发送消息到mq" class="headerlink" title="2.3.1 发送消息到mq"></a>2.3.1 发送消息到mq</h4><ol>
 <li>在rabbitmq管理后台创建队列 ad_update_queue ，用于接收广告更新通知</li>
 </ol>
-<img src="/images/image1/image-20210730194058801.png" srcset="/img/loading.gif" lazyload alt="image-20210730194058801" style="zoom:80%;" />
+<img src="/images/image-20210730194058801.png" srcset="/img/loading.gif" lazyload alt="image-20210730194058801" style="zoom:80%;" />
 
 <ol start="2">
 <li><p>引入rabbitmq起步依赖</p>
