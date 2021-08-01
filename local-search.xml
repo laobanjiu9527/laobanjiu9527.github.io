@@ -4,6 +4,19 @@
   
   
   <entry>
+    <title>4</title>
+    <link href="/2021/08/01/4.%20Hystrix%20%E7%86%94%E6%96%AD%E5%99%A8/"/>
+    <url>/2021/08/01/4.%20Hystrix%20%E7%86%94%E6%96%AD%E5%99%A8/</url>
+    
+    <content type="html"><![CDATA[<h1 id="1-Hystrix-概述"><a href="#1-Hystrix-概述" class="headerlink" title="1. Hystrix 概述"></a>1. <strong>Hystrix</strong> 概述</h1><ul><li>Hystix 是 Netflix 开源的一个延迟和容错库，用于隔离访问远程服务、第三方库，防止出现级联失败（雪崩: 一个服务失败，导致整条链路的服务都失败的情形）。</li></ul><p>Hystix 主要功能</p><ol><li>隔离<ol><li>线程池隔离 （对要请求的微服务设置可使用的线程数，这样不会导致一个微服务占用所有线程）</li><li>信号量隔离</li></ol></li><li>降级 （对异常提供降级方案，出现异常了就调用降级方案）</li><li>熔断</li><li>限流</li></ol><h2 id="1-1-Hystrix-降级"><a href="#1-1-Hystrix-降级" class="headerlink" title="1.1 Hystrix 降级"></a>1.1 <strong>Hystrix</strong> <strong>降级</strong></h2><p>Hystix 降级：当服务发生异常或调用超时，返回默认数据</p><p><img src="/images/image-20210801232052828.png" alt="image-20210801232052828"></p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Feign声明式服务调用</title>
     <link href="/2021/08/01/3.%20Feign/"/>
     <url>/2021/08/01/3.%20Feign/</url>
