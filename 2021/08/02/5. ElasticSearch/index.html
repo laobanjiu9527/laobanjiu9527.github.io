@@ -298,9 +298,9 @@
 <h2 id="2-2-访问elasticsearch"><a href="#2-2-访问elasticsearch" class="headerlink" title="2.2 访问elasticsearch"></a>2.2 访问elasticsearch</h2><ol>
 <li><p>在访问elasticsearch前，请确保防火墙是关闭的，执行命令：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash">暂时关闭防火墙</span><br>systemctl  stop  firewalld<br><span class="hljs-meta"></span><br><span class="hljs-meta">#</span><span class="bash"> 或者</span><br><span class="hljs-meta"></span><br><span class="hljs-meta">#</span><span class="bash">永久设置防火墙状态</span><br>systemctl enable firewalld.service  #打开防火墙永久性生效，重启后不会复原 <br>systemctl disable firewalld.service #关闭防火墙，永久性生效，重启后不会复原 <br></code></pre></td></tr></table></figure></li>
-<li><p>浏览器输入<a target="_blank" rel="noopener" href="http://192.168.200.129:9200/%EF%BC%8C%E5%A6%82%E4%B8%8B%E5%9B%BE">http://192.168.200.129:9200/，如下图</a></p>
+<li><p>浏览器输入<a target="_blank" rel="noopener" href="http://192.168.200.129:9200/">http://192.168.200.129:9200/</a></p>
 <p><img src="/images/image-20210802234919469.png" srcset="/img/loading.gif" lazyload alt="image-20210802234919469"></p>
-<p>此时elasticsearch已成功启动：</p>
+<p>看到上图说明此时elasticsearch已成功启动：</p>
 <figure class="highlight d"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs d">重点几个关注下即可:<br>numbe<span class="hljs-string">r&quot; : &quot;</span><span class="hljs-number">7.4</span><span class="hljs-number">.0</span><span class="hljs-string">&quot;   表示elasticsearch版本</span><br><span class="hljs-string">lucene_version&quot;</span> : <span class="hljs-string">&quot;8.2.0&quot;</span>  表示lucene版本<br>name ： 默认启动的时候指定了 ES 实例名称<br>cluster_name ： 默认名为 elasticsearch<br></code></pre></td></tr></table></figure></li>
 </ol>
 <h1 id="3-Elasticsearch辅助插件Kibana安装"><a href="#3-Elasticsearch辅助插件Kibana安装" class="headerlink" title="3. Elasticsearch辅助插件Kibana安装"></a>3. Elasticsearch辅助插件Kibana安装</h1><p>什么是Kibana?</p>
@@ -329,7 +329,7 @@
 <p>由于kibana不建议使用root用户启动，如果用root启动，需要加–allow-root参数</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"> 切换到kibana的bin目录</span><br>cd /opt/kibana-7.4.0-linux-x86_64/bin<br><span class="hljs-meta">#</span><span class="bash"> 启动</span><br>./kibana --allow-root<br></code></pre></td></tr></table></figure></li>
 <li><p>访问kibana</p>
-<p>浏览器输入<a target="_blank" rel="noopener" href="http://192.168.200.129:5601/%EF%BC%8C%E5%A6%82%E4%B8%8B%E5%9B%BE%EF%BC%9A">http://192.168.200.129:5601/，如下图：</a></p>
+<p>浏览器输入<a target="_blank" rel="noopener" href="http://192.168.200.129:5601/">http://192.168.200.129:5601/</a></p>
 <p><img src="/images/image-20210803000515080.png" srcset="/img/loading.gif" lazyload alt="image-20210803000515080"></p>
 <p>看到这个界面，说明Kibanan已成功安装。</p>
 <ul>
