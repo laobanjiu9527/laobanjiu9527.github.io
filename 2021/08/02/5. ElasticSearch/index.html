@@ -225,15 +225,11 @@
 <p>将一段文本按照一定的规则，拆分为不同的词条（term）</p>
 <p><img src="/images/image-20210802232553086.png" srcset="/img/loading.gif" lazyload alt="image-20210802232553086"></p>
 <h2 id="1-2-ES存储和查询的原理"><a href="#1-2-ES存储和查询的原理" class="headerlink" title="1.2 ES存储和查询的原理"></a>1.2 ES存储和查询的原理</h2><ul>
-<li><p><strong>index（索引）</strong>：相当于mysql的数据库</p>
-</li>
-<li><p><strong>映射</strong>：相当于mysql 的表结构</p>
-</li>
-<li><p>**document(文档)**：相当于mysql的表中的数据</p>
-</li>
-<li><p><em>数据库查询存在的问题：</em>*</p>
-</li>
+<li><strong>index（索引）</strong>：相当于mysql的数据库</li>
+<li><strong>映射</strong>：相当于mysql 的表结构</li>
+<li>**document(文档)**：相当于mysql的表中的数据</li>
 </ul>
+<p>数据库查询存在的问题：</p>
 <ol>
 <li>性能低：使用模糊查询，左边有通配符，不会走索引，会全表扫描，性能低</li>
 <li>功能弱：如果以”华为手机“作为条件查询下图索引库，查询不出来数据</li>
