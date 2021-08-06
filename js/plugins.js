@@ -109,6 +109,7 @@ Fluid.plugins = {
     window.anchors.options = {
       placement: CONFIG.anchorjs.placement,
       visible  : CONFIG.anchorjs.visible
+      
     };
     if (CONFIG.anchorjs.icon) {
       window.anchors.options.icon = CONFIG.anchorjs.icon;
