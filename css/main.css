@@ -51,7 +51,7 @@
   box-shadow: 0 12px 15px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
 .copy-btn {
-  display: inline-block;
+  display: none;
   cursor: pointer;
   border-radius: 0.1rem;
   border: none;
