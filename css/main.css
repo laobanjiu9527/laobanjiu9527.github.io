@@ -51,7 +51,7 @@
   box-shadow: 0 12px 15px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
 .copy-btn {
-  display: inline-block;
+  display: none;
   cursor: pointer;
   border-radius: 0.1rem;
   border: none;
@@ -946,7 +946,6 @@ img[lazyload] {
   max-width: 90%;
   margin: 1.5rem auto;
   display: block;
-  box-shadow: 0 5px 11px 0 rgba(0,0,0,0.18), 0 4px 15px 0 rgba(0,0,0,0.15);
   border-radius: 3px;
 }
 .markdown-body blockquote {
