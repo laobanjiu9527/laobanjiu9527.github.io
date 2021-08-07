@@ -173,7 +173,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      331 字
+      376 字
     </span>
   
 
@@ -183,7 +183,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      4
+      5
        分钟
     </span>
   
@@ -226,9 +226,9 @@
 </li>
 </ol>
 <h2 id="2-修改样式"><a href="#2-修改样式" class="headerlink" title="2. 修改样式"></a>2. 修改样式</h2><ol>
-<li><p>在 rewrite.styl文件中，我去掉了标题的超链接样式，代码如下(注意他的相对位置)</p>
+<li><p>在 plugin.js文件中，我去掉了标题的超链接样式，代码如下(注意他的相对位置)</p>
 <p>165行</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-selector-tag">a</span><br>  <span class="hljs-attribute">color</span> var(--post-link-color)<br>  <span class="hljs-comment">//下面三行是自己加的</span><br>  --link-hover-<span class="hljs-attribute">color</span>: transparent   //把链接颜色改成透明<br>  --post-link-<span class="hljs-attribute">color</span>: transparent<br>  <span class="hljs-attribute">cursor</span>: context-menu  //把鼠标悬停手势改为文本手势<br></code></pre></td></tr></table></figure></li>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-comment">//下面这个函数注释掉最后一行</span><br>initAnchor: function() &#123;<br>  <span class="hljs-keyword">if</span> (!(<span class="hljs-string">&#x27;anchors&#x27;</span> <span class="hljs-keyword">in</span> window)) &#123; return; &#125;<br>   <br>  window<span class="hljs-selector-class">.anchors</span><span class="hljs-selector-class">.options</span> = &#123;<br>    placement: CONFIG<span class="hljs-selector-class">.anchorjs</span><span class="hljs-selector-class">.placement</span>,<br>    visible  : CONFIG<span class="hljs-selector-class">.anchorjs</span><span class="hljs-selector-class">.visible</span><br>    <br>  &#125;;<br>  <span class="hljs-keyword">if</span> (CONFIG<span class="hljs-selector-class">.anchorjs</span>.<span class="hljs-attribute">icon</span>) &#123;<br>    window<span class="hljs-selector-class">.anchors</span><span class="hljs-selector-class">.options</span><span class="hljs-selector-class">.icon</span> = CONFIG<span class="hljs-selector-class">.anchorjs</span>.<span class="hljs-attribute">icon</span>;<br>  &#125;<br>  <span class="hljs-selector-tag">var</span> el = (CONFIG<span class="hljs-selector-class">.anchorjs</span><span class="hljs-selector-class">.element</span> || <span class="hljs-string">&#x27;h1,h2,h3,h4,h5,h6&#x27;</span>)<span class="hljs-selector-class">.split</span>(<span class="hljs-string">&#x27;,&#x27;</span>);<br>  <span class="hljs-selector-tag">var</span> res = <span class="hljs-selector-attr">[]</span>;<br>  <span class="hljs-keyword">for</span> (const item of el) &#123;<br>    res<span class="hljs-selector-class">.push</span>(<span class="hljs-string">&#x27;.markdown-body &gt; &#x27;</span> + item);<br>  &#125;<br>  <span class="hljs-comment">//window.anchors.add(res.join(&#x27;, &#x27;));</span><br>&#125;, <br></code></pre></td></tr></table></figure></li>
 <li><p>在copy.stl文件中，我去掉了代码框右上角的鼠标悬停显示copy的样式，代码如下(注意他的相对位置)</p>
 <p>第一行</p>
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-selector-class">.copy-btn</span><br>  <span class="hljs-comment">//display inline-block</span><br>  <span class="hljs-attribute">display</span> none<br></code></pre></td></tr></table></figure>

@@ -103,6 +103,7 @@ Fluid.plugins = {
     });
   },
 
+  //下面这个函数注释掉，试试
   initAnchor: function() {
     if (!('anchors' in window)) { return; }
 
@@ -119,8 +120,8 @@ Fluid.plugins = {
     for (const item of el) {
       res.push('.markdown-body > ' + item);
     }
-    window.anchors.add(res.join(', '));
-  },
+    //window.anchors.add(res.join(', '));
+  }, 
 
   initCopyCode: function() {
     if (!('ClipboardJS' in window)) { return; }
