@@ -1550,6 +1550,7 @@ post-custom {
   }
 }
 .markdown-body .image-caption {
+  display: none;
   font-size: 0.8rem;
   color: var(--post-text-color);
   opacity: 0.65;
