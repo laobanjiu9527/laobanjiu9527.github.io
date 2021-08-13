@@ -85,11 +85,12 @@ Fluid.plugins = {
         $imageWrap.attr('data-fancybox', 'default').attr('rel', 'default');
       }
 
-      var imageTitle = $image.attr('title') || $image.attr('alt');
+     /* var imageTitle = $image.attr('title') || $image.attr('alt');
       if (imageTitle) {
         $imageWrap.append(`<p class="image-caption">${imageTitle}</p>`);
         $imageWrap.attr('title', imageTitle).attr('data-caption', imageTitle);
-      }
+      } */
+      
     });
 
     $.fancybox.defaults.hash = false;
