@@ -173,7 +173,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      434 字
+      507 字
     </span>
   
 
@@ -183,7 +183,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      6
+      7
        分钟
     </span>
   
@@ -241,6 +241,9 @@
 <li><p>在 post.styl文件中，去掉图片下方名称和间距</p>
 <p>添加了<code>display: none</code>, 表示不显示image-caption</p>
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-selector-class">.markdown-body</span> <span class="hljs-selector-class">.image-caption</span><br>  <span class="hljs-attribute">display</span>: none<br>  <span class="hljs-attribute">font-size</span> .<span class="hljs-number">8rem</span><br>  <span class="hljs-attribute">color</span> var(--post-text-color)<br>  <span class="hljs-attribute">opacity</span> <span class="hljs-number">0.65</span><br>  <span class="hljs-attribute">line-height</span> <span class="hljs-number">1</span><br>  <span class="hljs-attribute">margin</span> -<span class="hljs-number">0.75rem</span> auto <span class="hljs-number">2rem</span><br>  <span class="hljs-attribute">text-align</span> center<br></code></pre></td></tr></table></figure></li>
+<li><p>在 plugins.js文件中，去掉图片的title属性</p>
+<p>88行开始，将下面一段代码注释掉</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">/* var imageTitle = $image.attr(&#x27;title&#x27;) || $image.attr(&#x27;alt&#x27;);</span><br><span class="hljs-comment"> if (imageTitle) &#123;</span><br><span class="hljs-comment">   $imageWrap.append(`&lt;p class=&quot;image-caption&quot;&gt;$&#123;imageTitle&#125;&lt;/p&gt;`);</span><br><span class="hljs-comment">   $imageWrap.attr(&#x27;title&#x27;, imageTitle).attr(&#x27;data-caption&#x27;, imageTitle);</span><br><span class="hljs-comment"> &#125; */</span><br></code></pre></td></tr></table></figure></li>
 </ol>
 <h2 id="3-完成页面部署"><a href="#3-完成页面部署" class="headerlink" title="3. 完成页面部署"></a>3. 完成页面部署</h2><p>待样式更改完毕后，在blog的下一级目录开启git命令行，输入命令</p>
 <figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">hexo</span> g <span class="hljs-comment"># 生成页面</span><br></code></pre></td></tr></table></figure>
