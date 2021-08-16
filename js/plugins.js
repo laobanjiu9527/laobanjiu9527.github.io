@@ -75,15 +75,16 @@ Fluid.plugins = {
           }
         }
       }
-      var $imageWrap = $image.wrap(`
+     /* var $imageWrap = $image.wrap(`
         <a class="fancybox fancybox.image" href="${imageUrl}"
           itemscope itemtype="http://schema.org/ImageObject" itemprop="url"></a>`
       ).parent('a');
+
       if ($image.is('.group-image-container img')) {
         $imageWrap.attr('data-fancybox', 'group').attr('rel', 'group');
       } else {
         $imageWrap.attr('data-fancybox', 'default').attr('rel', 'default');
-      }
+      }  */
 
      /* var imageTitle = $image.attr('title') || $image.attr('alt');
       if (imageTitle) {
