@@ -14,11 +14,11 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="">
+  <meta name="description" content="暂无摘要">
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-  <title>11 - laobanjiu</title>
+  <title>剑指offer2 题解 - laobanjiu</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -151,7 +151,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="11">
+            <span class="h2" id="subtitle" title="剑指offer2 题解">
               
             </span>
 
@@ -173,7 +173,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      0 字
+      524 字
     </span>
   
 
@@ -183,7 +183,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      1
+      7
        分钟
     </span>
   
@@ -213,10 +213,38 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">11</h1>
+            <h1 style="display: none">剑指offer2 题解</h1>
             
             <div class="markdown-body">
-              
+              <h1 id="day01-整数"><a href="#day01-整数" class="headerlink" title="day01 整数"></a>day01 整数</h1><h2 id="001-整数除法"><a href="#001-整数除法" class="headerlink" title="001 整数除法"></a>001 整数除法</h2><p><img src="/images/image-20210819123251826.png" srcset="/img/loading.gif" lazyload alt="image-20210819123251826"></p>
+<p>注意的点：</p>
+<ul>
+<li>记住int基本类型的最大整数和最小整数是通过<code>Integer.MIN_VALUE</code>和<code>Integer.MAX_VALUE</code>来得到的。</li>
+<li>这里面的symbol初始值设置为0，两个数里面只要有正数就让他为1，并且把他的值转为负数。如果最后symbol的值为1,说明他俩符号相异，最后在返回的结果上加上负号。</li>
+<li>关于为什么把正数变为负数，而不是反过来，是因为复数的表示范围比正数大1，转换为负数不会溢出。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">divide</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a, <span class="hljs-keyword">int</span> b)</span> </span>&#123;<br><br>    <span class="hljs-keyword">if</span>(a == Integer.MIN_VALUE &amp;&amp; b == -<span class="hljs-number">1</span>)&#123;<br>        <span class="hljs-keyword">return</span> Integer.MAX_VALUE;<br>    &#125;<br><br>    <span class="hljs-keyword">int</span> symbol = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">if</span>(a&gt;<span class="hljs-number">0</span>) &#123;<br>        symbol++;<br>        a=-a;<br>    &#125;<br><br>    <span class="hljs-keyword">if</span>(b&gt;<span class="hljs-number">0</span>) &#123;<br>        symbol++;<br>        b = -b;<br>    &#125;<br><br>    <span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">while</span>(a &lt;= b)&#123;<br>        a -= b;<br>        i++;<br>    &#125;<br>    <span class="hljs-keyword">int</span> res = symbol == <span class="hljs-number">1</span> ? (-i) : i;<br>    <span class="hljs-keyword">return</span> res;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="002-二进制加法"><a href="#002-二进制加法" class="headerlink" title="002 二进制加法"></a>002 二进制加法</h2><p><img src="/images/image-20210819123329534.png" srcset="/img/loading.gif" lazyload alt="image-20210819123329534"></p>
+<p>注意：</p>
+<ul>
+<li>字符串拼接用<code>StringBuffer</code>这个类，拼接用<code>append()</code>方法，反转用<code>reverse()</code>方法</li>
+<li>获取字符串特定索引处的字符用<code>charAt()</code>方法</li>
+<li>字符串索引的最大值比字符串长度小1</li>
+<li>add 表示进位的值，求进位的值用<code>/</code>取商，求本位的值用<code>%</code>取余数（模）</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">addBinary</span><span class="hljs-params">(String a, String b)</span> </span>&#123;<br><br>    StringBuffer res = <span class="hljs-keyword">new</span> StringBuffer();<br>    <span class="hljs-keyword">int</span> l1 = a.length() -<span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">int</span> l2 = b.length()-<span class="hljs-number">1</span>;<br><br>    <span class="hljs-keyword">int</span> x, y, sum, add=<span class="hljs-number">0</span>;<br><br>    <span class="hljs-keyword">while</span>(l1&gt;=<span class="hljs-number">0</span> || l2&gt;=<span class="hljs-number">0</span>)&#123;<br>        x = l1&gt;=<span class="hljs-number">0</span>?a.charAt(l1)-<span class="hljs-string">&#x27;0&#x27;</span>:<span class="hljs-number">0</span>;<br>        y = l2&gt;=<span class="hljs-number">0</span>?b.charAt(l2)-<span class="hljs-string">&#x27;0&#x27;</span>:<span class="hljs-number">0</span>;<br><br>        res.append((x+y+add)%<span class="hljs-number">2</span>);<br>        add = (x+y+add)/<span class="hljs-number">2</span>;<br><br>        l1--;<br>        l2--;<br>    &#125;<br>    <br>    <span class="hljs-keyword">if</span>(add != <span class="hljs-number">0</span>) res.append(add);<br><br>    <span class="hljs-keyword">return</span> res.reverse().toString();<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="003-前-n-个数字二进制中-1-的个数"><a href="#003-前-n-个数字二进制中-1-的个数" class="headerlink" title="003 前 n 个数字二进制中 1 的个数"></a>003 前 n 个数字二进制中 1 的个数</h2><p><img src="/images/image-20210819122014317.png" srcset="/img/loading.gif" lazyload alt="image-20210819122014317"></p>
+<p>注意：</p>
+<ul>
+<li>整型数组如果不赋初值的话，里面每个元素的默认值为0</li>
+<li><code>j &amp;(j-1)</code>会消掉元素j的二进制表示中的一个1</li>
+<li>不用把j转换为二进制再运算，因为计算机本来就是计算二进制的，他自己在运算的时候会自动转换</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span>[] countBits(<span class="hljs-keyword">int</span> n) &#123;<br><br>    <span class="hljs-keyword">int</span> a[] = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[n+<span class="hljs-number">1</span>];<br>    <br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n ; i++) &#123;<br>        <span class="hljs-keyword">int</span> j=i;<br>        <span class="hljs-keyword">while</span>(j&gt;<span class="hljs-number">0</span>)&#123;<br>            j = j &amp;(j-<span class="hljs-number">1</span>);  <br>            a[i]++;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> a;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
             </div>
             <hr>
             <div>
