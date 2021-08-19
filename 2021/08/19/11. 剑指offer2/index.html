@@ -173,7 +173,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      524 字
+      979 字
     </span>
   
 
@@ -183,7 +183,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      7
+      14
        分钟
     </span>
   
@@ -243,6 +243,32 @@
 <li>不用把j转换为二进制再运算，因为计算机本来就是计算二进制的，他自己在运算的时候会自动转换</li>
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span>[] countBits(<span class="hljs-keyword">int</span> n) &#123;<br><br>    <span class="hljs-keyword">int</span> a[] = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[n+<span class="hljs-number">1</span>];<br>    <br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n ; i++) &#123;<br>        <span class="hljs-keyword">int</span> j=i;<br>        <span class="hljs-keyword">while</span>(j&gt;<span class="hljs-number">0</span>)&#123;<br>            j = j &amp;(j-<span class="hljs-number">1</span>);  <br>            a[i]++;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> a;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="004-只出现一次的数字"><a href="#004-只出现一次的数字" class="headerlink" title="004 只出现一次的数字"></a>004 只出现一次的数字</h2><p><img src="/images/image-20210819141406843.png" srcset="/img/loading.gif" lazyload alt="image-20210819141406843"></p>
+<p>注意：</p>
+<ul>
+<li>判断map集合中是否有该键值对，用<code>containsKey</code>方法</li>
+<li><code>map.get(key)</code>获得的是该键对应的值</li>
+<li><code>map.keySet()</code>是获得键的集合</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">singleNumber</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span> </span>&#123;<br><br>    Map&lt;Integer, Integer&gt; map = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();<br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>; i&lt;nums.length; i++)&#123;<br>        <span class="hljs-keyword">if</span>(!map.containsKey(nums[i]))&#123;<br>            map.put(nums[i], <span class="hljs-number">1</span>);<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            Integer value = map.get(nums[i]) + <span class="hljs-number">1</span>;<br>            map.put(nums[i], value);<br>        &#125;<br><br>    &#125;<br><br>    <span class="hljs-keyword">for</span> (Integer key : map.keySet()) &#123;<br>        <span class="hljs-keyword">if</span>(map.get(key) == <span class="hljs-number">1</span>)&#123;<br>            <span class="hljs-keyword">return</span> key;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>进阶：</strong>你的算法应该具有线性时间复杂度。 你可以不使用额外空间来实现吗？</p>
+<p>这里要用到位运算，先不深入学</p>
+<h2 id="005-单词长度的最大乘积"><a href="#005-单词长度的最大乘积" class="headerlink" title="005 单词长度的最大乘积"></a>005 单词长度的最大乘积</h2><p><img src="/images/image-20210819145141723.png" srcset="/img/loading.gif" lazyload alt="image-20210819145141723"></p>
+<p>注意：</p>
+<ul>
+<li>字符串不能直接遍历，要么用for循环按照下标来，要么把它转换成字符数组用foreach遍历</li>
+<li>比较两者中的最大值并返回用<code>Math.max()</code>方法</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">maxProduct</span><span class="hljs-params">(String[] words)</span> </span>&#123;<br><br>    <span class="hljs-comment">//将words的每个单词是否出现记录到二维数组中</span><br>    <span class="hljs-keyword">boolean</span>[][] flags = <span class="hljs-keyword">new</span> <span class="hljs-keyword">boolean</span>[words.length][<span class="hljs-number">26</span>];<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; words.length; i++) &#123;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">char</span> ch : words[i].toCharArray()) &#123;<br>           flags[i][ch-<span class="hljs-string">&#x27;a&#x27;</span>] = <span class="hljs-keyword">true</span>;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">//判断每对单词是否有相同字符</span><br>    <span class="hljs-keyword">int</span> result = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; words.length; i++) &#123;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = i+<span class="hljs-number">1</span>; j &lt; words.length; j++) &#123;<br>            <span class="hljs-keyword">int</span> k = <span class="hljs-number">0</span>;<br>            <span class="hljs-keyword">for</span>(; k&lt;<span class="hljs-number">26</span>; k++)&#123;<br>                <span class="hljs-keyword">if</span>(flags[i][k] &amp;&amp; flags[j][k])&#123;<br>                    <span class="hljs-keyword">break</span>;<br>                &#125;<br>            &#125;<br><br>            <span class="hljs-keyword">if</span>(k==<span class="hljs-number">26</span>)&#123;<br>                <span class="hljs-keyword">int</span> prod = words[i].length() * words[j].length();<br>                result = Math.max(result, prod);<br>            &#125;<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> result;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="006-排序数组中两个数字之和"><a href="#006-排序数组中两个数字之和" class="headerlink" title="006 排序数组中两个数字之和"></a>006 排序数组中两个数字之和</h2><p><img src="/images/image-20210819151734545.png" srcset="/img/loading.gif" lazyload alt="image-20210819151734545"></p>
+<p>注意：</p>
+<ul>
+<li>两数之和有固定的做法，就是双指针</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span>[] twoSum(<span class="hljs-keyword">int</span>[] numbers, <span class="hljs-keyword">int</span> target) &#123;<br>    <span class="hljs-keyword">int</span> left = <span class="hljs-number">0</span>, right = numbers.length-<span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">int</span> sum;<br>    <span class="hljs-keyword">while</span>(left &lt; right)&#123;<br>        sum = numbers[left]+numbers[right];<br><br>        <span class="hljs-keyword">if</span>(sum == target)&#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[]&#123;left, right&#125;;<br>        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(sum &lt; target) &#123;<br>            left++;<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            right--;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 
             </div>
