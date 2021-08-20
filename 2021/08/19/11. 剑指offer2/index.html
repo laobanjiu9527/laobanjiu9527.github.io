@@ -173,7 +173,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      979 字
+      1.8k 字
     </span>
   
 
@@ -183,7 +183,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      14
+      26
        分钟
     </span>
   
@@ -216,7 +216,7 @@
             <h1 style="display: none">剑指offer2 题解</h1>
             
             <div class="markdown-body">
-              <h1 id="day01-整数"><a href="#day01-整数" class="headerlink" title="day01 整数"></a>day01 整数</h1><h2 id="001-整数除法"><a href="#001-整数除法" class="headerlink" title="001 整数除法"></a>001 整数除法</h2><p><img src="/images/image-20210819123251826.png" srcset="/img/loading.gif" lazyload alt="image-20210819123251826"></p>
+              <h1 id="part-01-整数"><a href="#part-01-整数" class="headerlink" title="part-01 整数"></a>part-01 整数</h1><h2 id="001-整数除法"><a href="#001-整数除法" class="headerlink" title="001 整数除法"></a>001 整数除法</h2><p><img src="/images/image-20210819123251826.png" srcset="/img/loading.gif" lazyload alt="image-20210819123251826"></p>
 <p>注意的点：</p>
 <ul>
 <li>记住int基本类型的最大整数和最小整数是通过<code>Integer.MIN_VALUE</code>和<code>Integer.MAX_VALUE</code>来得到的。</li>
@@ -270,6 +270,55 @@
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span>[] twoSum(<span class="hljs-keyword">int</span>[] numbers, <span class="hljs-keyword">int</span> target) &#123;<br>    <span class="hljs-keyword">int</span> left = <span class="hljs-number">0</span>, right = numbers.length-<span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">int</span> sum;<br>    <span class="hljs-keyword">while</span>(left &lt; right)&#123;<br>        sum = numbers[left]+numbers[right];<br><br>        <span class="hljs-keyword">if</span>(sum == target)&#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[]&#123;left, right&#125;;<br>        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(sum &lt; target) &#123;<br>            left++;<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            right--;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 
+<h1 id="part-02-数组"><a href="#part-02-数组" class="headerlink" title="part-02 数组"></a>part-02 数组</h1><h2 id="007-数组中和为-0-的三个数"><a href="#007-数组中和为-0-的三个数" class="headerlink" title="007 数组中和为 0 的三个数"></a>007 数组中和为 0 的三个数</h2><p><img src="/images/image-20210820131539822.png" srcset="/img/loading.gif" lazyload alt="image-20210820131539822"></p>
+<p>注意：</p>
+<ul>
+<li>碰到求几个数之和的，首先想到双指针做法，并且需要将数组排好序</li>
+<li>对数组进行排序用<code>Arrays.sort()</code>这个方法</li>
+<li>对于本题中的三数之和为0，可以让第二个和第三个数等于第一个数的负数就行了</li>
+<li>set集合里面不允许存放重复元素，所以可以把list存放在里面不用考虑重复问题</li>
+<li><code>new ArrayList&lt;&gt;(set)</code>这个构造方法可以将一个set集合转换成list集合</li>
+<li><code>Arrays.asList()</code>可以将若干个整数作为参数，返回的是一个list集合</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> List&lt;List&lt;Integer&gt;&gt; threeSum(<span class="hljs-keyword">int</span>[] nums) &#123;<br>    HashSet&lt;List&lt;Integer&gt;&gt; set = <span class="hljs-keyword">new</span> HashSet&lt;&gt;();<br>    <span class="hljs-comment">//给数组先排好序</span><br>    Arrays.sort(nums);<br><br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; nums.length; i++) &#123;<br>        <span class="hljs-keyword">int</span> target = -nums[i];<br>        <span class="hljs-keyword">int</span> left = i+<span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">int</span> right = nums.length-<span class="hljs-number">1</span>;<br><br>        <span class="hljs-keyword">while</span> (left&lt;right)&#123;<br>            <span class="hljs-keyword">int</span> sum = nums[left]+nums[right];<br>            <span class="hljs-keyword">if</span>(sum == target)&#123;<br>                set.add(Arrays.asList(nums[i],nums[left], nums[right]));<br>                left++;<br>                right--;<br>            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (sum&lt;target)&#123;<br>                left++;<br>            &#125; <span class="hljs-keyword">else</span>&#123;<br>                right--;<br>            &#125;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ArrayList&lt;&gt;(set);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="008-和大于等于-target-的最短子数组"><a href="#008-和大于等于-target-的最短子数组" class="headerlink" title="008 和大于等于 target 的最短子数组"></a>008 和大于等于 target 的最短子数组</h2><p><img src="/images/image-20210820141536629.png" srcset="/img/loading.gif" lazyload alt="image-20210820141536629"></p>
+<p>注意：</p>
+<ul>
+<li>关于设置<code>res=Integer.MAX_VALUE</code>这一语句，是为了后面用<code>Math.min()</code>来对满足题目的子数组进行长度比较，如果值仍为<code>Integer.MAX_VALUE</code>，说明没有满足题意的子数组，按照要求返回0</li>
+<li>由题目的连续子数组这一要求可以知道采用滑动窗口这一办法，值比目标值小，向右移动右指针，值大于等于目标值，向右移动左指针</li>
+<li>数组的长度等于右指针减去左指针再加一</li>
+<li>注意while循环<code>left&lt;=right</code>这个条件可以取等号</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">minSubArrayLen</span><span class="hljs-params">(<span class="hljs-keyword">int</span> target, <span class="hljs-keyword">int</span>[] nums)</span> </span>&#123;<br>    <br>    <span class="hljs-keyword">int</span> left = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">int</span> sum = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">int</span> res=Integer.MAX_VALUE;<br><br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> right = <span class="hljs-number">0</span>; right &lt; nums.length; right++) &#123;<br>        sum += nums[right];<br>        <span class="hljs-keyword">while</span>(left&lt;=right &amp;&amp; sum&gt;=target)&#123;<br>            res = Math.min(res, right-left+<span class="hljs-number">1</span>);<br>            sum -= nums[left++];<br>        &#125;<br><br>    &#125;<br><br>    <span class="hljs-comment">//res==Integer.MAX_VALUE说明数组右指针走完了，没找到符合要求的子数组，按照要求输出0</span><br>    <span class="hljs-keyword">return</span> res == Integer.MAX_VALUE?<span class="hljs-number">0</span>:res;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="009-乘积小于-K-的子数组"><a href="#009-乘积小于-K-的子数组" class="headerlink" title="009 乘积小于 K 的子数组"></a>009 乘积小于 K 的子数组</h2><p><img src="/images/image-20210820151155653.png" srcset="/img/loading.gif" lazyload alt="image-20210820151155653"></p>
+<p>注意：</p>
+<ul>
+<li>while循环里的<code>left&lt;=right</code>这个条件的 = 要留着</li>
+<li>滑动窗口问题</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">numSubarrayProductLessThanK</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> k)</span> </span>&#123;<br><br>    <span class="hljs-keyword">int</span> left = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">int</span> prod = <span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;<br><br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> right = <span class="hljs-number">0</span>; right &lt; nums.length; right++) &#123;<br>        prod *= nums[right];<br><br>        <span class="hljs-keyword">while</span>(left&lt;=right &amp;&amp; prod&gt;=k)&#123;<br>            prod /= nums[left++];<br>        &#125;<br><br>        <span class="hljs-comment">//为什么每次都加right-left+1，</span><br>        <span class="hljs-comment">// 这里的原理还没搞清楚，先记着</span><br>        <span class="hljs-keyword">if</span> (left&lt;=right) &#123;<br>            res += right-left+<span class="hljs-number">1</span>;<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> res;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="010-和为-k-的子数组"><a href="#010-和为-k-的子数组" class="headerlink" title="010 和为 k 的子数组"></a>010 和为 k 的子数组</h2><p>不会</p>
+<p>要用到哈希表和前缀和</p>
+<p>前缀和：</p>
+<p>比如有一个数组a = [a1, a2, a3, a4, a5]</p>
+<p>前缀和就为：</p>
+<p>sum[0] = a[0];</p>
+<p>sum[1] = a[1] + a[0];</p>
+<p>以此类推：</p>
+<p>sum[4] = a[4] + a[3] + a[2] + a[1] + a[0]</p>
+<h2 id="011-0-和-1-个数相同的子数组"><a href="#011-0-和-1-个数相同的子数组" class="headerlink" title="011 0 和 1 个数相同的子数组"></a>011 0 和 1 个数相同的子数组</h2><p>不会</p>
+<h2 id="012-左右两边子数组的和相等"><a href="#012-左右两边子数组的和相等" class="headerlink" title="012 左右两边子数组的和相等"></a>012 左右两边子数组的和相等</h2><p><img src="/images/image-20210820220636558.png" srcset="/img/loading.gif" lazyload alt="image-20210820220636558"></p>
+<p>注意：</p>
+<ul>
+<li>先用一个循环求出整个数组的前缀和</li>
+<li>找中心下标的时候通过这个条件<code>sum-t == t-nums[i]</code>，<code>sum-t</code>表示t下标右边的值的和，<code>t-nums[i]</code>表示t下标左边的和</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">pivotIndex</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span> </span>&#123;<br>    <span class="hljs-keyword">int</span> sum = <span class="hljs-number">0</span>, t = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;nums.length;i++)&#123;<br>        sum+=nums[i];<br>    &#125;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;nums.length;i++)&#123;<br>        t+=nums[i];<br>        <span class="hljs-keyword">if</span>(sum-t == t-nums[i])<br>            <span class="hljs-keyword">return</span> i;<br>    &#125;<br>    <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="013-二维子矩阵的和"><a href="#013-二维子矩阵的和" class="headerlink" title="013 二维子矩阵的和"></a>013 二维子矩阵的和</h2><p>不会</p>
 
             </div>
             <hr>
