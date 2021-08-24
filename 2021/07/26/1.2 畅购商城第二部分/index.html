@@ -1070,7 +1070,7 @@
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs awk">cd <span class="hljs-regexp">/usr/</span>local<span class="hljs-regexp">/openresty/</span>nginx/sbin<br><br>./nginx -s reload<br></code></pre></td></tr></table></figure>
 
 <p>快速点击，会报错</p>
-<p><img src="images/image-20210729220115898-1629279323872.png" srcset="/img/loading.gif" lazyload alt="image-20210729220115898"></p>
+<p><img src="/images/image-20210729220115898-1629279323872.png" srcset="/img/loading.gif" lazyload alt="image-20210729220115898"></p>
 </li>
 </ul>
 <h4 id="3-1-2-处理突发流量"><a href="#3-1-2-处理突发流量" class="headerlink" title="3.1.2 处理突发流量"></a>3.1.2 处理突发流量</h4><p>上面例子限制 2r/s，如果有时正常流量突然增大，超出的请求将被拒绝，无法处理突发流量，可以结合 <strong>burst</strong> 参数使用来解决该问题。</p>
