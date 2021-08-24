@@ -1117,10 +1117,10 @@
 <ul>
 <li>DskipTests 表明安装的时候跳过测试</li>
 </ul>
-<p><img src="images/image-20210730125838140-1629279323872.png" srcset="/img/loading.gif" lazyload alt="image-20210730125838140"></p>
+<p><img src="/images/image-20210730125838140-1629279323872.png" srcset="/img/loading.gif" lazyload alt="image-20210730125838140"></p>
 </li>
 <li><p>BUILD SUCCESS以后可以在本地的maven仓库看到一个xpand包</p>
-<p><img src="images/image-20210730130053149-1629279323872.png" srcset="/img/loading.gif" lazyload alt="image-20210730130053149"></p>
+<p><img src="/images/image-20210730130053149-1629279323872.png" srcset="/img/loading.gif" lazyload alt="image-20210730130053149"></p>
 </li>
 </ol>
 <h4 id="1-3-1-微服务搭建"><a href="#1-3-1-微服务搭建" class="headerlink" title="1.3.1 微服务搭建"></a>1.3.1 微服务搭建</h4><ol>
@@ -1192,7 +1192,7 @@
 <li><p>在rabbitmq管理后台创建商品上架交换器（fanout）。使用分列模式的交换器是考虑商品上架会有很多种逻辑需要处理，导入索引库只是其中一项，另外还有商品详细页静态化等操作。这样我们可以创建导入索引库的队列和商品详细页静态化队列并与商品上架交换器进行绑定。</p>
 </li>
 <li><p>搜索微服务从rabbitmq的导入索引库的队列中提取spu的id，通过feign调用商品微服务得到sku的列表，并且通过调用elasticsearch的高级restAPI 将sku列表导入到索引库。</p>
-<p><img src="images/image-20210803144338107-1629279323872.png" srcset="/img/loading.gif" lazyload alt="image-20210803144338107"></p>
+<p><img src="/images/image-20210803144338107-1629279323872.png" srcset="/img/loading.gif" lazyload alt="image-20210803144338107"></p>
 </li>
 </ol>
 <h3 id="3-3-代码实现"><a href="#3-3-代码实现" class="headerlink" title="3.3 代码实现"></a>3.3 代码实现</h3><h4 id="3-3-1-发送消息到mq"><a href="#3-3-1-发送消息到mq" class="headerlink" title="3.3.1 发送消息到mq"></a>3.3.1 发送消息到mq</h4><ol>
@@ -1260,7 +1260,7 @@
 </li>
 <li><p>修改tb_spu某记录的is_marketable值为1，观察控制台输出，启动kibana查询记录是否导入成功</p>
 <p>可以看到成功导入3条数据</p>
-<p><img src="images/image-20210804135358627-1629279323872.png" srcset="/img/loading.gif" lazyload alt="image-20210804135358627"></p>
+<p><img src="/images/image-20210804135358627-1629279323872.png" srcset="/img/loading.gif" lazyload alt="image-20210804135358627"></p>
 </li>
 </ol>
 <h2 id="4-商品下架索引库删除数据"><a href="#4-商品下架索引库删除数据" class="headerlink" title="4. 商品下架索引库删除数据"></a>4. 商品下架索引库删除数据</h2><h3 id="4-1-需求分析"><a href="#4-1-需求分析" class="headerlink" title="4.1 需求分析"></a>4.1 需求分析</h3><p>商品下架后将商品从索引库中移除。</p>
@@ -1271,7 +1271,7 @@
 <li><p>在rabbitmq管理后台创建商品下架交换器（fanout）。使用分列模式的交换器是考虑商品下架会有很多种逻辑需要处理，索引库删除数据只是其中一项，另外还有删除商品详细页等操作</p>
 </li>
 <li><p>搜索微服务从rabbitmq的的队列中提取spu的id，通过调用elasticsearch的高级restAPI 将相关的sku列表从索引库删除</p>
-<p><img src="images/image-20210804135821285-1629279323872.png" srcset="/img/loading.gif" lazyload alt="image-20210804135821285"></p>
+<p><img src="/images/image-20210804135821285-1629279323872.png" srcset="/img/loading.gif" lazyload alt="image-20210804135821285"></p>
 </li>
 </ol>
 <h3 id="4-3-代码实现"><a href="#4-3-代码实现" class="headerlink" title="4.3 代码实现"></a>4.3 代码实现</h3><ol>
@@ -1281,11 +1281,11 @@
 <p>队列名称： search_delete_queue</p>
 <p>绑定 search_delete_queue到goods_down_exchange</p>
 <p>完善RabbitMQConfig的代码</p>
-<p><img src="images/image-20210804140359619-1629279323872.png" srcset="/img/loading.gif" lazyload alt="image-20210804140359619"></p>
+<p><img src="/images/image-20210804140359619-1629279323872.png" srcset="/img/loading.gif" lazyload alt="image-20210804140359619"></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Configuration</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RabbitMQConfig</span> </span>&#123;<br>    <span class="hljs-comment">//交换机名称</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> String GOODS_UP_EXCHANGE=<span class="hljs-string">&quot;goods_up_exchange&quot;</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> String GOODS_DOWN_EXCHANGE=<span class="hljs-string">&quot;goods_down_exchange&quot;</span>;<br><br>    <span class="hljs-comment">//定义队列名称 (tips: 大小写转换快捷键：CTRL+SHIFT+U)</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> String SEARCH_ADD_QUEUE=<span class="hljs-string">&quot;search_add_queue&quot;</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> String AD_UPDATE_QUEUE = <span class="hljs-string">&quot;ad_update_queue&quot;</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> String SEARCH_DEL_QUEUE=<span class="hljs-string">&quot;search_del_queue&quot;</span>;<br><br>    <span class="hljs-comment">//声明队列</span><br>    <span class="hljs-meta">@Bean</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Queue <span class="hljs-title">queue</span><span class="hljs-params">()</span></span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Queue(AD_UPDATE_QUEUE);<br>    &#125;<br><br>    <span class="hljs-comment">//声明队列</span><br>    <span class="hljs-meta">@Bean(SEARCH_ADD_QUEUE)</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Queue <span class="hljs-title">SEARCH_ADD_QUEUE</span><span class="hljs-params">()</span></span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Queue(SEARCH_ADD_QUEUE);<br>    &#125;<br><br>    <span class="hljs-meta">@Bean(SEARCH_DEL_QUEUE)</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Queue <span class="hljs-title">SEARCH_DEL_QUEUE</span><span class="hljs-params">()</span></span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Queue(SEARCH_DEL_QUEUE);<br>    &#125;<br><br>    <span class="hljs-comment">//声明交换机</span><br>    <span class="hljs-meta">@Bean(GOODS_UP_EXCHANGE)</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Exchange <span class="hljs-title">GOODS_UP_EXCHANGE</span><span class="hljs-params">()</span></span>&#123;<br>        <span class="hljs-keyword">return</span> ExchangeBuilder.fanoutExchange(GOODS_UP_EXCHANGE).durable(<span class="hljs-keyword">true</span>).build();<br>    &#125;<br><br>    <span class="hljs-meta">@Bean(GOODS_DOWN_EXCHANGE)</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Exchange <span class="hljs-title">GOODS_DOWN_EXCHANGE</span><span class="hljs-params">()</span></span>&#123;<br>        <span class="hljs-keyword">return</span> ExchangeBuilder.fanoutExchange(GOODS_DOWN_EXCHANGE).durable(<span class="hljs-keyword">true</span>).build();<br>    &#125;<br><br>    <span class="hljs-comment">//队列绑定交换机</span><br>    <span class="hljs-meta">@Bean</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Binding <span class="hljs-title">SEARCH_ADD_QUEUE_BINDING</span><span class="hljs-params">(<span class="hljs-meta">@Qualifier(SEARCH_ADD_QUEUE)</span> Queue queue, <span class="hljs-meta">@Qualifier(GOODS_UP_EXCHANGE)</span> Exchange exchange)</span></span>&#123;<br>        <span class="hljs-keyword">return</span> BindingBuilder.bind(queue).to(exchange).with(<span class="hljs-string">&quot;&quot;</span>).noargs();<br>    &#125;<br><br>    <span class="hljs-meta">@Bean</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Binding <span class="hljs-title">GOODS_DOWN_EXCHANGE_BINDING</span><span class="hljs-params">(<span class="hljs-meta">@Qualifier(SEARCH_DEL_QUEUE)</span>Queue queue,<span class="hljs-meta">@Qualifier(GOODS_DOWN_EXCHANGE)</span>Exchange exchange)</span></span>&#123;<br>        <span class="hljs-keyword">return</span> BindingBuilder.bind(queue).to(exchange).with(<span class="hljs-string">&quot;&quot;</span>).noargs();<br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
 
 <p>由于搜索微服务也会用到消息队列，因此把已经写好的配置类复制一份给它</p>
-<p><img src="images/image-20210804140812672-1629279323872.png" srcset="/img/loading.gif" lazyload alt="image-20210804140812672"></p>
+<p><img src="/images/image-20210804140812672-1629279323872.png" srcset="/img/loading.gif" lazyload alt="image-20210804140812672"></p>
 </li>
 <li><p><strong>canal监听下架</strong></p>
 <p>修改changgou_canal的SpuListener的spuUpdate方法，添加以下代码</p>
