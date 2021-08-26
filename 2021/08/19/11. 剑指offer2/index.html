@@ -173,7 +173,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      6.2k 字
+      6.5k 字
     </span>
   
 
@@ -183,7 +183,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      91
+      95
        分钟
     </span>
   
@@ -509,6 +509,21 @@
 <h2 id="040-矩阵中最大的矩形"><a href="#040-矩阵中最大的矩形" class="headerlink" title="040 矩阵中最大的矩形"></a>040 矩阵中最大的矩形</h2><p>方法：单调栈</p>
 <p><img src="/images/image-20210825165212932.png" srcset="/img/loading.gif" lazyload alt="image-20210825165212932"></p>
 <p>困难题，先不写</p>
+<h1 id="part-07-队列"><a href="#part-07-队列" class="headerlink" title="part-07 队列"></a>part-07 队列</h1><p>Java中的队列Queue是一个接口，LinkedList是他的实现类之一。下面是Queue接口的方法介绍</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Queue</span>&lt;<span class="hljs-title">E</span>&gt; <span class="hljs-keyword">extends</span> <span class="hljs-title">Collection</span>&lt;<span class="hljs-title">E</span>&gt; </span>&#123;<br><br>    <span class="hljs-comment">//将指定的元素添加入队列尾部，如果队列是有界的且没有空闲空间则抛出异常</span><br>    <span class="hljs-function"><span class="hljs-keyword">boolean</span> <span class="hljs-title">add</span><span class="hljs-params">(E e)</span></span>;<br><br>    <span class="hljs-comment">//方法将指定的元素添加入队列，如果队列是有界的且没有空闲空间则返回false。</span><br>    <span class="hljs-comment">// 在使用有界队列时推荐使用该方法来替代add方法。</span><br>    <span class="hljs-function"><span class="hljs-keyword">boolean</span> <span class="hljs-title">offer</span><span class="hljs-params">(E e)</span></span>;<br><br>    <span class="hljs-comment">//删除并返回队首的元素。如果队列为空则会抛异常</span><br>    <span class="hljs-function">E <span class="hljs-title">remove</span><span class="hljs-params">()</span></span>;<br><br>    <span class="hljs-comment">//删除并返回队首的元素。如果队列为空返回null</span><br>    <span class="hljs-function">E <span class="hljs-title">poll</span><span class="hljs-params">()</span></span>;<br><br>    <span class="hljs-comment">//返回队首元素但是不删除。如果队列为空会抛出异常</span><br>    <span class="hljs-function">E <span class="hljs-title">element</span><span class="hljs-params">()</span></span>;<br><br>    <span class="hljs-comment">//返回队首元素但是不删除。如果队列为空则返回null</span><br>    <span class="hljs-function">E <span class="hljs-title">peek</span><span class="hljs-params">()</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="041-滑动窗口的平均值"><a href="#041-滑动窗口的平均值" class="headerlink" title="041 滑动窗口的平均值"></a>041 滑动窗口的平均值</h2><p>方法：队列</p>
+<p><img src="/images/image-20210826130617014.png" srcset="/img/loading.gif" lazyload alt="image-20210826130617014"></p>
+<p>注意：</p>
+<ul>
+<li><code>Queue&lt;Integer&gt; queue = new LinkedList();</code>，注意队列的创建</li>
+<li><code>queue.poll()</code>：删除队列的头部元素</li>
+<li><code>queue.offer()</code>：往队列的尾部添加元素</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs java">Queue&lt;Integer&gt; queue;<br><span class="hljs-keyword">int</span> size;<br><span class="hljs-keyword">double</span> sum;<br><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">MovingAverage</span><span class="hljs-params">(<span class="hljs-keyword">int</span> size)</span> </span>&#123;<br>    queue = <span class="hljs-keyword">new</span> LinkedList();<br>    <span class="hljs-keyword">this</span>.size = size;<br>    sum = <span class="hljs-number">0</span>;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">double</span> <span class="hljs-title">next</span><span class="hljs-params">(<span class="hljs-keyword">int</span> val)</span> </span>&#123;<br>    sum += val;<br>    <span class="hljs-keyword">if</span>(queue.size() == size) sum -= queue.poll();<br>    queue.offer(val);<br>    <span class="hljs-keyword">return</span> sum/queue.size();<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="042-最近请求次数"><a href="#042-最近请求次数" class="headerlink" title="042 最近请求次数"></a>042 最近请求次数</h2><p><img src="/images/image-20210826131950196.png" srcset="/img/loading.gif" lazyload alt="image-20210826131950196"></p>
+<p>这题先不写</p>
 
             </div>
             <hr>
