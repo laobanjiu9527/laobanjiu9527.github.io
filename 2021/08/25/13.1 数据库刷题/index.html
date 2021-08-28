@@ -18,7 +18,7 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-  <title>数据库刷题详解 - laobanjiu</title>
+  <title>数据库刷题详解1 - laobanjiu</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -151,7 +151,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="数据库刷题详解">
+            <span class="h2" id="subtitle" title="数据库刷题详解1">
               
             </span>
 
@@ -173,7 +173,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      480 字
+      687 字
     </span>
   
 
@@ -183,7 +183,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      5
+      8
        分钟
     </span>
   
@@ -213,7 +213,7 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">数据库刷题详解</h1>
+            <h1 style="display: none">数据库刷题详解1</h1>
             
             <div class="markdown-body">
               <h1 id="001-第二高的薪水"><a href="#001-第二高的薪水" class="headerlink" title="001 第二高的薪水"></a>001 第二高的薪水</h1><p><img src="/images/image-20210825224036107.png" srcset="/img/loading.gif" lazyload alt="image-20210825224036107"></p>
@@ -248,6 +248,30 @@
 <li>后面的字句必须把部门带上，不然只有一个最高的薪水，带上部门以后会显示各个部门的最高薪水</li>
 </ul>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs SQL"><span class="hljs-keyword">SELECT</span><br>    Department.name <span class="hljs-keyword">AS</span> <span class="hljs-string">&#x27;Department&#x27;</span>,<br>    Employee.name <span class="hljs-keyword">AS</span> <span class="hljs-string">&#x27;Employee&#x27;</span>,<br>    Salary<br><span class="hljs-keyword">FROM</span><br>    Employee<br>        <span class="hljs-keyword">JOIN</span><br>    Department <span class="hljs-keyword">ON</span> Employee.DepartmentId <span class="hljs-operator">=</span> Department.Id<br><span class="hljs-keyword">WHERE</span><br>    (Employee.DepartmentId , Salary) <span class="hljs-keyword">IN</span><br>    (   <span class="hljs-keyword">SELECT</span><br>            DepartmentId, <span class="hljs-built_in">MAX</span>(Salary)<br>        <span class="hljs-keyword">FROM</span><br>            Employee<br>        <span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">BY</span> DepartmentId<br>	)<br>;<br></code></pre></td></tr></table></figure>
+
+<h1 id="004-部门工资前三高的所有员工"><a href="#004-部门工资前三高的所有员工" class="headerlink" title="004 部门工资前三高的所有员工"></a>004 部门工资前三高的所有员工</h1><p>关于 topN 问题有固定解法</p>
+<p>首先学习几个关于排名的函数</p>
+<p>注意：</p>
+<ul>
+<li><p><code>rank()</code>, <code>dense_rank()</code>, <code>row_number()</code>都是用来排名的，但是当有相同值的时候，他们的排名策略不同</p>
+<p><img src="/images/image-20210828164904757.png" srcset="/img/loading.gif" lazyload alt="image-20210828164904757"></p>
+</li>
+<li><p><code>as dese_rank</code>给列起别名</p>
+</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span>,<br>   <span class="hljs-built_in">rank</span>() <span class="hljs-keyword">over</span> (<span class="hljs-keyword">order</span> <span class="hljs-keyword">by</span> 成绩 <span class="hljs-keyword">desc</span>) <span class="hljs-keyword">as</span> ranking,<br>   <span class="hljs-built_in">dense_rank</span>() <span class="hljs-keyword">over</span> (<span class="hljs-keyword">order</span> <span class="hljs-keyword">by</span> 成绩 <span class="hljs-keyword">desc</span>) <span class="hljs-keyword">as</span> dese_rank,<br>   <span class="hljs-built_in">row_number</span>() <span class="hljs-keyword">over</span> (<span class="hljs-keyword">order</span> <span class="hljs-keyword">by</span> 成绩 <span class="hljs-keyword">desc</span>) <span class="hljs-keyword">as</span> row_num<br><span class="hljs-keyword">from</span> 班级;<br></code></pre></td></tr></table></figure>
+
+<p>其次掌握 topN 问题的固定解法</p>
+<p>注意</p>
+<ul>
+<li>临时表名不能少</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs sql"># topN问题 <span class="hljs-keyword">sql</span>模板<br><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span><br><span class="hljs-keyword">from</span> (<br>   <span class="hljs-keyword">select</span> <span class="hljs-operator">*</span>, <br>          <span class="hljs-built_in">dense_rank</span>() <span class="hljs-keyword">over</span> (<span class="hljs-keyword">partition</span> <span class="hljs-keyword">by</span> 要分组的列名<br>                       <span class="hljs-keyword">order</span> <span class="hljs-keyword">by</span> 要排序的列名 <span class="hljs-keyword">desc</span>) <span class="hljs-keyword">as</span> 排名<br>   <span class="hljs-keyword">from</span> 表名) <span class="hljs-keyword">as</span> 临时表名<br><span class="hljs-keyword">where</span> 排名 <span class="hljs-operator">&lt;=</span> N;<br></code></pre></td></tr></table></figure>
+
+<p>接下来回到题目</p>
+<p><img src="/images/image-20210828171231810.png" srcset="/img/loading.gif" lazyload alt="image-20210828171231810"></p>
+<p><img src="/images/image-20210828171255229.png" srcset="/img/loading.gif" lazyload alt="image-20210828171255229"></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span><br>	Department.Name Department, ranktab.Name Employee, Salary<br><span class="hljs-keyword">FROM</span><br>	Department<br><span class="hljs-keyword">join</span><br>	(<br>    <span class="hljs-keyword">select</span> <span class="hljs-operator">*</span>, <br>            <span class="hljs-built_in">dense_rank</span>() <span class="hljs-keyword">over</span> (<span class="hljs-keyword">partition</span> <span class="hljs-keyword">by</span> DepartmentId<br>                        <span class="hljs-keyword">order</span> <span class="hljs-keyword">by</span> Salary <span class="hljs-keyword">desc</span>) <span class="hljs-keyword">as</span> ranking<br>    <span class="hljs-keyword">from</span> Employee<br>	) <span class="hljs-keyword">as</span> ranktab<br><span class="hljs-keyword">ON</span> DepartmentId <span class="hljs-operator">=</span> Department.Id<br><span class="hljs-keyword">WHERE</span> <br>	ranking <span class="hljs-operator">&lt;=</span> <span class="hljs-number">3</span>;<br></code></pre></td></tr></table></figure>
 
 
             </div>
