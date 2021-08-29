@@ -1034,9 +1034,9 @@
 
 <h4 id="2-4-4-前端页面实现（了解）"><a href="#2-4-4-前端页面实现（了解）" class="headerlink" title="2.4.4 前端页面实现（了解）"></a>2.4.4 前端页面实现（了解）</h4><p>这里先不学，有需要再说。</p>
 <p>待更改完成后用FileZilla连接服务器（在这里就是那台linux虚拟机）</p>
-<p><img src="images/image-20210729213014273-1629279323872.png" srcset="/img/loading.gif" lazyload alt="image-20210729213014273"></p>
+<p><img src="/images/image-20210729213014273-1629279323872.png" srcset="/img/loading.gif" lazyload alt="image-20210729213014273"></p>
 <p>连接成功后，把本地的前端页面以及其样式设置的文件和文件夹全部都拷贝到服务器上nginx目录下的html文件夹中</p>
-<p><img src="images/image-20210729213222244-1629279323872.png" srcset="/img/loading.gif" lazyload alt="image-20210729213222244"></p>
+<p><img src="/images/image-20210729213222244-1629279323872.png" srcset="/img/loading.gif" lazyload alt="image-20210729213222244"></p>
 <p>最后更改nginx.conf的配置</p>
 <figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-comment"># 加载首页</span><br>      <span class="hljs-attribute">location</span> / &#123;<br>          <span class="hljs-attribute">root</span>   html;  <span class="hljs-comment"># 表明页面文件都部署在html文件夹下</span><br>          <span class="hljs-attribute">index</span>  index.html index.htm;  <span class="hljs-comment"># 表明location对应的主页页面</span><br>      &#125;<br></code></pre></td></tr></table></figure>
 
