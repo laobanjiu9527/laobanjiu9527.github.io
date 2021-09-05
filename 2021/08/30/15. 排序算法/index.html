@@ -173,7 +173,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.4k 字
+      1.8k 字
     </span>
   
 
@@ -183,7 +183,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      19
+      23
        分钟
     </span>
   
@@ -226,6 +226,75 @@
 <li>归并类排序</li>
 <li>基数类排序</li>
 </ol>
+<p>各种排序方法的时间复杂度，空间复杂度以及稳定性情况</p>
+<table>
+<thead>
+<tr>
+<th>排序方法</th>
+<th>平均时间复杂度</th>
+<th>最好情况</th>
+<th>最坏情况</th>
+<th>辅助空间</th>
+<th>稳定性</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>直接插入排序</td>
+<td>o(n<sup>2</sup>)</td>
+<td>o(n)</td>
+<td>o(n<sup>2</sup>)</td>
+<td>o(1)</td>
+<td>稳定</td>
+</tr>
+<tr>
+<td>希尔排序</td>
+<td>o(nlog<sub>2</sub>n) ~ o(n<sup>2</sup>)</td>
+<td>o(n<sup>1.3</sup>)</td>
+<td>o(n<sup>2</sup>)</td>
+<td>o(1)</td>
+<td>不稳定</td>
+</tr>
+<tr>
+<td>冒泡排序</td>
+<td>o(n<sup>2</sup>)</td>
+<td>o(n)</td>
+<td>o(n<sup>2</sup>)</td>
+<td>o(1)</td>
+<td>稳定</td>
+</tr>
+<tr>
+<td>快速排序</td>
+<td>o(nlog<sub>2</sub>n)</td>
+<td>o(nlog<sub>2</sub>n)</td>
+<td>o(n<sup>2</sup>)</td>
+<td>o(log<sub>2</sub>n) ~ o(n)</td>
+<td>不稳定</td>
+</tr>
+<tr>
+<td>选择排序</td>
+<td>o(n<sup>2</sup>)</td>
+<td>o(n<sup>2</sup>)</td>
+<td>o(n<sup>2</sup>)</td>
+<td>o(1)</td>
+<td>不稳定</td>
+</tr>
+<tr>
+<td>堆排序</td>
+<td>o(nlog<sub>2</sub>n)</td>
+<td>o(nlog<sub>2</sub>n)</td>
+<td>o(nlog<sub>2</sub>n)</td>
+<td>o(1)</td>
+<td>不稳定</td>
+</tr>
+<tr>
+<td>归并排序</td>
+<td>o(nlog<sub>2</sub>n)</td>
+<td>o(nlog<sub>2</sub>n)</td>
+<td>o(nlog<sub>2</sub>n)</td>
+<td>o(n)</td>
+<td>稳定</td>
+</tr>
+</tbody></table>
 <h1 id="2-插入类排序"><a href="#2-插入类排序" class="headerlink" title="2. 插入类排序"></a>2. 插入类排序</h1><h2 id="2-1-直接插入排序"><a href="#2-1-直接插入排序" class="headerlink" title="2.1 直接插入排序"></a>2.1 直接插入排序</h2><p>注意</p>
 <ul>
 <li>基本排序的时间复杂度都是o(n<sup>2</sup>)</li>
@@ -249,13 +318,19 @@
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">bubbleSort</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a[], <span class="hljs-keyword">int</span> n)</span> </span>&#123;<br>    <span class="hljs-keyword">int</span> temp;<br>    <br>    <span class="hljs-comment">// 外面一层循环看成需要比较到的最后一个元素的下标</span><br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = n - <span class="hljs-number">1</span>; i &gt; <span class="hljs-number">0</span>; --i) &#123;<br>        <br>        <span class="hljs-comment">// 里面一层元素用来比较相邻元素</span><br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt;= i; ++j) &#123;<br>            <span class="hljs-keyword">if</span> (a[j - <span class="hljs-number">1</span>] &gt; a[j]) &#123;<br>                temp = a[j - <span class="hljs-number">1</span>];<br>                a[j - <span class="hljs-number">1</span>] = a[j];<br>                a[j] = temp;<br>            &#125;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<h2 id="3-2-快速排序"><a href="#3-2-快速排序" class="headerlink" title="3.2 快速排序"></a>3.2 快速排序</h2><p>每一趟选择序列中的一个元素当作关键字，比关键字小的放前边，比关键字大的放后边</p>
+<h2 id="3-2-快速排序"><a href="#3-2-快速排序" class="headerlink" title="3.2 快速排序"></a>3.2 快速排序</h2><p><strong>快速排序的思想</strong></p>
+<ol>
+<li>从数列中取出最左侧数作为基准数</li>
+<li>将比这个数大的数全放到它的右边，小于或等于它的数全放到它的左边（从右端开始扫描，每次只要交换了顺序，就换个方向开始扫描）</li>
+<li>再对左右区间重复第一，二步（即递归），直到各区间只有一个数</li>
+</ol>
+<p>最优的情况下空间复杂度为：O(log2n)  ；每一次都平分数组的情况，<strong>基准数尽量为中间数</strong>。</p>
 <p>注意：</p>
 <ul>
 <li>时间复杂度：最好情况下 o(nlog<sub>2</sub>n)，最坏情况下 o(n<sup>2</sup>)</li>
 <li>空间复杂度(o(log<sub>2</sub>n))，因为他每次都是折半递归的</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">quickSort</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] a, <span class="hljs-keyword">int</span> low, <span class="hljs-keyword">int</span> high)</span> </span>&#123;<br>    <span class="hljs-keyword">int</span> temp;<br>    <span class="hljs-keyword">int</span> left = low, right = high;<br>    <br>    <span class="hljs-keyword">if</span> (low &lt; high) &#123;<br>        temp = a[low];<br><br>        <span class="hljs-keyword">while</span> (left &lt; right) &#123;<br><br>            <span class="hljs-comment">//右边的值大于选定值的时候，右边指针往左走，不满足的时候退出循环</span><br>            <span class="hljs-keyword">while</span> (right &gt; left &amp;&amp; a[right] &gt; temp) &#123;<br>                --right;<br>            &#125;<br><br>            <span class="hljs-keyword">if</span> (right &gt; left) &#123;<br>                <span class="hljs-comment">//为什么可以直接把值给覆盖掉？</span><br>                <span class="hljs-comment">// 因为一开始选的值一直都在temp里存着，自始至终覆盖掉的也都是temp那个值。</span><br>                <span class="hljs-comment">// 最后等两个指针相遇的时候，那个位子的值附上temp就行了</span><br>                <span class="hljs-comment">//把右边的值移到左边指针的位置</span><br>                a[left] = a[right];<br>                ++left;<br>            &#125;<br><br>            <span class="hljs-comment">//左边的值小于选定值的时候，左边指针往右走，不满足的时候退出循环</span><br>            <span class="hljs-keyword">while</span> (left &lt; right &amp;&amp; a[left] &lt; temp) &#123;<br>                ++left;<br>            &#125;<br><br>            <span class="hljs-comment">//把左边的值移到右边指针的位置</span><br>            <span class="hljs-keyword">if</span> (left &lt; right) &#123;<br>                a[right] = a[left];<br>                --right;<br>            &#125;<br><br>        &#125;<br><br>        a[left] = temp;<br>        <br>        <span class="hljs-comment">//继续递归，直至low不小于high</span><br>        quickSort(a, low, left - <span class="hljs-number">1</span>);<br>        quickSort(a, left + <span class="hljs-number">1</span>, high);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">quickSort</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] a, <span class="hljs-keyword">int</span> low, <span class="hljs-keyword">int</span> high)</span> </span>&#123;<br>    <span class="hljs-keyword">int</span> temp;<br>    <span class="hljs-keyword">int</span> left = low, right = high;<br>    <br>    <span class="hljs-keyword">if</span> (low &lt; high) &#123;<br>        temp = a[low];<br><br>        <span class="hljs-keyword">while</span> (left &lt; right) &#123;<br><br>            <span class="hljs-comment">//右边的值大于选定值的时候，右边指针往左走，不满足的时候退出循环</span><br>            <span class="hljs-keyword">while</span> (right &gt; left &amp;&amp; a[right] &gt; temp) &#123;<br>                --right;<br>            &#125;<br><br>            <span class="hljs-keyword">if</span> (right &gt; left) &#123;<br>                <span class="hljs-comment">//为什么可以直接把值给覆盖掉？</span><br>                <span class="hljs-comment">// 因为一开始选的值一直都在temp里存着，自始至终覆盖掉的也都是temp那个值。</span><br>                <span class="hljs-comment">// 最后等两个指针相遇的时候，那个位子的值附上temp就行了</span><br>                <span class="hljs-comment">//把右边的值移到左边指针的位置</span><br>                a[left] = a[right];<br>                ++left;<br>            &#125;<br><br>            <span class="hljs-comment">//左边的值小于选定值的时候，左边指针往右走，不满足的时候退出循环</span><br>            <span class="hljs-keyword">while</span> (left &lt; right &amp;&amp; a[left] &lt;= temp) &#123;<br>                ++left;<br>            &#125;<br><br>            <span class="hljs-comment">//把左边的值移到右边指针的位置</span><br>            <span class="hljs-keyword">if</span> (left &lt; right) &#123;<br>                a[right] = a[left];<br>                --right;<br>            &#125;<br><br>        &#125;<br><br>        a[left] = temp;<br>        <br>        <span class="hljs-comment">//继续递归，直至low不小于high</span><br>        quickSort(a, low, left - <span class="hljs-number">1</span>);<br>        quickSort(a, left + <span class="hljs-number">1</span>, high);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <h1 id="4-选择类排序"><a href="#4-选择类排序" class="headerlink" title="4. 选择类排序"></a>4. 选择类排序</h1><h2 id="4-1-简单选择排序"><a href="#4-1-简单选择排序" class="headerlink" title="4.1 简单选择排序"></a>4.1 简单选择排序</h2><p>核心思想：每次从无序的元素中找出最小的那个元素和最前面的以元素互换</p>
 <p>注意</p>
@@ -268,7 +343,13 @@
 <h2 id="4-2-堆排序"><a href="#4-2-堆排序" class="headerlink" title="4.2 堆排序"></a>4.2 堆排序</h2><p>堆是一种数据结构，可以把它看成是一颗完全二叉树</p>
 <p>是和数据多的情况，比如从10000个数据里面选出前十个最小的</p>
 <p>他的算法先不掌握</p>
-<h1 id="5-二路归并排序"><a href="#5-二路归并排序" class="headerlink" title="5. 二路归并排序"></a>5. 二路归并排序</h1><p>注意</p>
+<h1 id="5-二路归并排序"><a href="#5-二路归并排序" class="headerlink" title="5. 二路归并排序"></a>5. 二路归并排序</h1><p>归并排序思想：</p>
+<ol>
+<li>选出数组的中间值下标</li>
+<li>对中间数左侧（包括中间值）进行归并排序，对中间数右侧进行归并排序。（递归至左右侧数组不可再分）</li>
+<li>将左右侧数组融合为一个数组</li>
+</ol>
+<p>注意</p>
 <ul>
 <li>时间复杂度：o(nlog<sub>2</sub>n)</li>
 <li>空间复杂度：o(n)</li>
