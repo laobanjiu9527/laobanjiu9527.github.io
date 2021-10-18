@@ -449,9 +449,7 @@
 
 <p>关于access_token和jti的关系，需要多强调一点：</p>
 <ul>
-<li><p>jti与access_token成对出现，一 一对应。他俩是一个键值对。jti作为键存储在cookie中，access_token作为值存储在redis中（因为cookei存放的数据长度有限，不然不需要下面的</p>
-<p>redis）</p>
-</li>
+<li>jti与access_token成对出现，一 一对应。他俩是一个键值对。jti作为键存储在cookie中，access_token作为值存储在redis中（因为cookei存放的数据长度有限，不然不需要下面的 redis）</li>
 </ul>
 </li>
 <li><p><strong>令牌校验</strong>  </p>

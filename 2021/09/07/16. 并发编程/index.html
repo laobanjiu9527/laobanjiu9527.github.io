@@ -173,7 +173,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      9.8k 字
+      10k 字
     </span>
   
 
@@ -183,7 +183,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      142
+      144
        分钟
     </span>
   
@@ -383,8 +383,22 @@
 <li><p>也可在方法上加 synchronized 关键字</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Test</span></span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">synchronized</span> <span class="hljs-keyword">void</span> <span class="hljs-title">test</span><span class="hljs-params">()</span> </span>&#123;<br><br>    &#125;<br>&#125;<br>等价于<br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Test</span></span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">test</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">synchronized</span>(<span class="hljs-keyword">this</span>) &#123;<br><br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
 </ol>
-<h3 id="4-3-Monitor-概念"><a href="#4-3-Monitor-概念" class="headerlink" title="4.3 Monitor 概念"></a>4.3 Monitor 概念</h3><p>64 位虚拟机 Mark Word</p>
+<h3 id="4-3-Monitor-概念"><a href="#4-3-Monitor-概念" class="headerlink" title="4.3 Monitor 概念"></a>4.3 Monitor 概念</h3><p>64 位虚拟机 对象头的 Mark Word</p>
 <p><img src="/images/image-20210908224610716.png" srcset="/img/loading.gif" lazyload alt="image-20210908224610716"></p>
+<p><img src="C:/Users/Ahao/Desktop/Java%E5%90%8E%E7%AB%AF%E9%9D%A2%E8%AF%95%E7%9F%A5%E8%AF%86/image/image-20210915212518530.png" srcset="/img/loading.gif" lazyload alt="image-20210915212518530"></p>
+<p>每个 Java 对象都可以关联一个 Monitor 对象，如果使用 synchronized 给对象上锁（重量级）之后，该对象头的Mark Word 中就被设置指向 Monitor 对象的指针。</p>
+<ul>
+<li><p>刚开始 Monitor 中 Owner 为 null</p>
+</li>
+<li><p>当 Thread-2 执行 synchronized(obj) 就会将 Monitor 的所有者 Owner 置为 Thread-2，Monitor中只能有一个 Owner</p>
+</li>
+<li><p>在 Thread-2 上锁的过程中，如果 Thread-3，Thread-4，Thread-5 也来执行 synchronized(obj)，就会进入EntryList BLOCKED</p>
+</li>
+<li><p>Thread-2 执行完同步代码块的内容，然后唤醒 EntryList 中等待的线程来竞争锁，竞争的时是非公平的</p>
+</li>
+<li><p>图中 WaitSet 中的 Thread-0，Thread-1 是之前获得过锁，但条件不满足进入 WAITING 状态的线程，后面讲wait-notify 时会分析</p>
+</li>
+</ul>
 <h3 id="4-4-wait-和-notify-方法"><a href="#4-4-wait-和-notify-方法" class="headerlink" title="4.4 wait 和 notify 方法"></a>4.4 wait 和 notify 方法</h3><p>wait() 方法会释放锁，如果没有被 notify 的话，他会在WaitSet等待区无限等待。</p>
 <p>wait(long n) 有时限的等待, 到 n 毫秒后结束等待，或是没有等够时间就被 notify</p>
 <p><strong>API 介绍</strong></p>
@@ -784,7 +798,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//倒计时锁计数初始化</span><br>CountDownLatch latch = <span class="hljs-keyword">new</span> CountDownLatch(<span class="hljs-number">3</span>);<br><br><span class="hljs-comment">//计数减一</span><br>latch.countDown();<br><br><span class="hljs-comment">//获得当前计数</span><br>latch.getCount();<br><br><span class="hljs-comment">//计数为0时才会往下执行，否则一直阻塞</span><br>latch.await();<br></code></pre></td></tr></table></figure>
 
 <p>用来进行线程同步协作，等待所有线程完成倒计时。</p>
-<p>其中构造参数用来初始化等待计数值，await() 用来等待计数归零，countDown() 用来让计数减一。</p>
+<p>其中构造参数用来初始化等待计数值，await() 用来等待计数归零，countDown() 用来让计数减一。（记数不为0，不会执行await后面的代码）</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Slf4j(topic = &quot;c.Demo&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Demo</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> InterruptedException </span>&#123;<br>        CountDownLatch latch = <span class="hljs-keyword">new</span> CountDownLatch(<span class="hljs-number">3</span>);<br><br>        <span class="hljs-keyword">new</span> Thread(() -&gt; &#123;<br>            log.debug(<span class="hljs-string">&quot;begin...&quot;</span>);<br>            <span class="hljs-keyword">try</span> &#123;<br>                sleep(<span class="hljs-number">10</span>);<br>            &#125; <span class="hljs-keyword">catch</span> (InterruptedException e) &#123;<br>                e.printStackTrace();<br>            &#125;<br>            latch.countDown();<br>            log.debug(<span class="hljs-string">&quot;end...&#123;&#125;&quot;</span>, latch.getCount());<br>        &#125;).start();<br><br>        <span class="hljs-keyword">new</span> Thread(() -&gt; &#123;<br>            log.debug(<span class="hljs-string">&quot;begin...&quot;</span>);<br>            <span class="hljs-keyword">try</span> &#123;<br>                sleep(<span class="hljs-number">20</span>);<br>            &#125; <span class="hljs-keyword">catch</span> (InterruptedException e) &#123;<br>                e.printStackTrace();<br>            &#125;<br>            latch.countDown();<br>            log.debug(<span class="hljs-string">&quot;end...&#123;&#125;&quot;</span>, latch.getCount());<br>        &#125;).start();<br><br>        <span class="hljs-keyword">new</span> Thread(() -&gt; &#123;<br>            log.debug(<span class="hljs-string">&quot;begin...&quot;</span>);<br>            <span class="hljs-keyword">try</span> &#123;<br>                sleep(<span class="hljs-number">15</span>);<br>            &#125; <span class="hljs-keyword">catch</span> (InterruptedException e) &#123;<br>                e.printStackTrace();<br>            &#125;<br>            latch.countDown();<br>            log.debug(<span class="hljs-string">&quot;end...&#123;&#125;&quot;</span>, latch.getCount());<br>        &#125;).start();<br><br>        log.debug(<span class="hljs-string">&quot;waiting...&quot;</span>);<br>        latch.await();<br>        log.debug(<span class="hljs-string">&quot;wait end...&quot;</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <p>输出</p>
