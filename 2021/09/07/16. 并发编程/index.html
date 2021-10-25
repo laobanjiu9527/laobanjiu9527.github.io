@@ -271,7 +271,7 @@
 <h3 id="2-2-sleep-与-yield-方法"><a href="#2-2-sleep-与-yield-方法" class="headerlink" title="2.2 sleep 与 yield 方法"></a>2.2 sleep 与 yield 方法</h3><p>都会让出时间片</p>
 <p><strong>sleep</strong></p>
 <ol>
-<li>调用 sleep 会让当前线程从 <em>Running</em> 进入 <em>Timed Waiting</em> 状态（阻塞）</li>
+<li>调用 sleep 会让当前线程从 <em>Running</em> 进入 <em>Timed Waiting</em> 状态</li>
 <li>其它线程可以使用 interrupt 方法打断正在睡眠的线程，这时 sleep 方法会抛出 InterruptedException</li>
 <li>睡眠结束后的线程未必会立刻得到执行 (需要有时间片才行)</li>
 <li>建议用 TimeUnit 的 sleep 代替 Thread 的 sleep 来获得更好的可读性</li>
